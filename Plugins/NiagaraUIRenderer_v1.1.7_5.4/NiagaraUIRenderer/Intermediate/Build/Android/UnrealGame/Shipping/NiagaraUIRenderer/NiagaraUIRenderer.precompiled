@@ -1,0 +1,32 @@
+{
+	"OutputFiles": [
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Shipping\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Shipping\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o"
+	]
+}

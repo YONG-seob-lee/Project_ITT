@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\source\\niagarauirenderer\\private\\niagarawidgetproperties.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unrealengine-release\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\niagarauirenderer\\definitions.niagarauirenderer.h",
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\source\\niagarauirenderer\\public\\niagarawidgetproperties.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

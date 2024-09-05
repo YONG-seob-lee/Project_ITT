@@ -1,0 +1,32 @@
+{
+	"OutputFiles": [
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\a\\UnrealGame\\Development\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIActor.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.o",
+		"..\\..\\..\\x\\UnrealGame\\Development\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.o"
+	]
+}

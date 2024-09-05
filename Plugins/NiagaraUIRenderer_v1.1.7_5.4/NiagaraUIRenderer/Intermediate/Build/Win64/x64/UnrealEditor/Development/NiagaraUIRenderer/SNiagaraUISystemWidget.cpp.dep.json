@@ -1,0 +1,43 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\source\\niagarauirenderer\\private\\sniagarauisystemwidget.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unrealengine-release\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\niagarauirenderer\\definitions.niagarauirenderer.h",
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\source\\niagarauirenderer\\public\\sniagarauisystemwidget.h",
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\source\\niagarauirenderer\\public\\niagarawidgetproperties.h",
+            "d:\\unrealengine-release\\engine\\source\\runtime\\slate\\public\\slatematerialbrush.h",
+            "d:\\unrealengine-release\\engine\\source\\runtime\\umg\\public\\slate\\smeshwidget.h",
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\source\\niagarauirenderer\\public\\niagarauicomponent.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaracomponent.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaradefines.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagarascalabilitystate.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagarascalabilitystate.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaratickbehaviorenum.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaratickbehaviorenum.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagarauserredirectionparameterstore.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaraparameterstore.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaratypes.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagaracore\\public\\niagaracore.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagaracore\\uht\\niagaracore.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaratypes.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaraparameterstore.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagarauserredirectionparameterstore.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\source\\niagara\\public\\niagaravariant.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaravariant.generated.h",
+            "d:\\unrealengine-release\\engine\\source\\runtime\\engine\\classes\\particles\\particleperfstats.h",
+            "d:\\unrealengine-release\\engine\\source\\runtime\\engine\\classes\\particles\\particlesystemcomponent.h",
+            "d:\\unrealengine-release\\engine\\source\\runtime\\engine\\classes\\particles\\particlesystem.h",
+            "d:\\unrealengine-release\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\particlesystem.generated.h",
+            "d:\\unrealengine-release\\engine\\source\\runtime\\engine\\classes\\particles\\emitter.h",
+            "d:\\unrealengine-release\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\emitter.generated.h",
+            "d:\\unrealengine-release\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\particlesystemcomponent.generated.h",
+            "d:\\unrealengine-release\\engine\\plugins\\fx\\niagara\\intermediate\\build\\win64\\unrealeditor\\inc\\niagara\\uht\\niagaracomponent.generated.h",
+            "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\intermediate\\build\\win64\\unrealeditor\\inc\\niagarauirenderer\\uht\\niagarauicomponent.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

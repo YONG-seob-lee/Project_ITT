@@ -1,0 +1,11 @@
+{
+	"OutputFiles": [
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\Module.NiagaraUIRenderer.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraSystemWidget.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIActor.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIComponent.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraUIRenderer.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\NiagaraWidgetProperties.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\NiagaraUIRenderer\\SNiagaraUISystemWidget.cpp.obj"
+	]
+}
