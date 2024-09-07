@@ -18,7 +18,6 @@ DECLARE_LOG_CATEGORY_EXTERN(My_Log, Log, All);
 									Object->ConditionalBeginDestroy();	\
 								 };
 
-DECLARE_MULTICAST_DELEGATE_OneParam(F_TestDelegate, float);
 /////////////////////////
 ///
 ///			Scene Part
@@ -263,7 +262,7 @@ enum class EITT_AndroidButton_Type : uint8
 };
 
 DECLARE_DELEGATE_TwoParams(FBindAllKeysDelegate, const FKey&, bool);
-
+DECLARE_MULTICAST_DELEGATE_OneParam(FBindSelectDelegate, float);
 
 /////////////////////////
 ///
@@ -439,7 +438,9 @@ enum class EITT_CharacterState : uint8
 	DoubleJump,
 	Landing,
 	Dash,
-	Crouch
+	Crouch,
+	// RosePart
+	Select,
 };
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FITT_UnitActorTickDelegate, TObjectPtr<class UITT_UnitBase>);

@@ -32,14 +32,16 @@ public:
 	void DestroyInputPawn();
 
 	FORCEINLINE FBindAllKeysDelegate& GetBindAllKeysDelegate() { return AllKeysDelegate; }
-
+	FORCEINLINE FBindSelectDelegate& GetBindSelectDelegate() { return OnSelectDollDelegate; }
+	
 private:
 	UPROPERTY()
 	TObjectPtr<class AITT_Pawn_Input> InputPawn = nullptr;
 
 	FBindAllKeysDelegate AllKeysDelegate;
+	FBindSelectDelegate OnSelectDollDelegate;
 
-// todo : 용섭 Input Mapping Part
+	// todo : 용섭 Input Mapping Part
 	
 public:
 	void LeftAxisUpDown(float Value);
@@ -57,8 +59,6 @@ public:
 
 	void Interaction();
 
-	F_TestDelegate TestDelegate;
-	
 private:
 	FInputAxisBinding CharacterMove_UpDownEvent = FInputAxisBinding(TEXT("CharacterMove_UpDown"));
 	FInputAxisBinding CharacterMove_LeftRightEvent = FInputAxisBinding(TEXT("CharacterMove_LeftRight"));

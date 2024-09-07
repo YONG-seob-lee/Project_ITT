@@ -3,7 +3,6 @@
 
 #include "ITT_BasePlayer_Rose.h"
 
-#include "UnitState/ITT_State_SelectPick.h"
 #include "UnitState/ITT_State_SelectPickMove.h"
 
 void UITT_BasePlayer_Rose::Initialize()
@@ -28,7 +27,6 @@ bool UITT_BasePlayer_Rose::CreateUnit(int32 UnitTableId, const FVector& Pos, con
 	if(CreateActionStateMachine())
 	{
 		AddActionState(EITT_UnitActionState::Select_PickMove, TEXT("Character_PickMove"), UITT_State_SelectPickMove::StaticClass());
-		AddActionState(EITT_UnitActionState::Select_Pick, TEXT("Character_Pick"), UITT_State_SelectPick::StaticClass());
 	}
 	
 	ChangeActionState(EITT_UnitActionState::Select_PickMove);

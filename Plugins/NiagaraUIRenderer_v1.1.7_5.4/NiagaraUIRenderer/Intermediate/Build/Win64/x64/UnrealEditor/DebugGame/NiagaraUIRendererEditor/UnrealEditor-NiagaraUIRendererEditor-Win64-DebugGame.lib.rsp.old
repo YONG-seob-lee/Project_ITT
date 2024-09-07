@@ -7,6 +7,9 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.h.obj"
-"C:\Users\Lee\Documents\Unreal Projects\Resource_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\Module.NiagaraUIRendererEditor.cpp.obj"
+"C:\Users\Lee\Documents\Unreal Projects\Project_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\NiagaraUIContentBrowserExtension.cpp.obj"
+"C:\Users\Lee\Documents\Unreal Projects\Project_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\NiagaraUIRendererEditor.cpp.obj"
+"C:\Users\Lee\Documents\Unreal Projects\Project_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\NiagaraUIRendererEditorStyle.cpp.obj"
+"C:\Users\Lee\Documents\Unreal Projects\Project_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\NiagaraWidgetDetailCustomization.cpp.obj"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Default.rc2.res"
-/OUT:"C:\Users\Lee\Documents\Unreal Projects\Resource_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\UnrealEditor-NiagaraUIRendererEditor-Win64-DebugGame.lib"
+/OUT:"C:\Users\Lee\Documents\Unreal Projects\Project_ITT\Plugins\NiagaraUIRenderer_v1.1.7_5.4\NiagaraUIRenderer\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\NiagaraUIRendererEditor\UnrealEditor-NiagaraUIRendererEditor-Win64-DebugGame.lib"

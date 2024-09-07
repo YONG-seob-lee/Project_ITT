@@ -42,7 +42,8 @@ public:
 	void InputToggleSprint(const struct FInputActionValue& Value);
 	void InputStopToggleSprint(const struct FInputActionValue& Value);
 	
-
+	void InputSelectDoll(const struct FInputActionValue& Value);
+	
 	// -- Ability-- //
 	void InputAbility1_Fire(const struct FInputActionValue& Value);
 
@@ -90,6 +91,8 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ITTInput, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* ToggleSprintAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ITTInput, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* SelectAction;
 	
 	// -- Ability-- //
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ITTInput, meta = (AllowPrivateAccess = "true"))

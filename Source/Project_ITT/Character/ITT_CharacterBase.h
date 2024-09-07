@@ -23,7 +23,7 @@ public:
 	void Initialize();
 	void Finalize();
 	
-	TObjectPtr<UITT_AnimInstance> GetAnimInstance();
+	TObjectPtr<UAnimInstance> GetAnimInstance();
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -64,12 +64,6 @@ private:
 	void CreateTestSphere();
 
 	FORCEINLINE void SetName(const FString& Name) { CharacterName = Name; }
-
-	UPROPERTY(Category = AITT_CharacterBase, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	bool bReceive_React = false;
-	
-	UPROPERTY(Category = AITT_CharacterBase, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	float ReactValue = 0.f;
 	
 	UPROPERTY(Category = AITT_CharacterBase, EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	FString CharacterName = FString();

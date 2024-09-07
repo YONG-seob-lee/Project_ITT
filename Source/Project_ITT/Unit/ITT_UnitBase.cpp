@@ -44,7 +44,7 @@ bool UITT_UnitBase::CreateUnit(int32 UnitTableId, const FVector& Pos, const FRot
 		CharacterBase = NewCharacter;
 		CharacterBase->SetOwnerUnitBase(this);
 		
-		if(const TObjectPtr<UITT_AnimInstance> AnimInstance = GetAnimInstance())
+		if(const TObjectPtr<UITT_AnimInstance> AnimInstance = Cast<UITT_AnimInstance>(GetAnimInstance()))
 		{
 			AnimInstance->SetMoveSpeedInfo(ResourceUnitData->WalkSpeed, ResourceUnitData->RunSpeed);
 			AnimInstance->InitializeAnimation();
@@ -76,7 +76,7 @@ void UITT_UnitBase::SetUnitPosition(const FVector& NewSpawnUnitPosition) const
 	CharacterBase->SetActorLocation(NewSpawnUnitPosition);
 }
 
-TObjectPtr<UITT_AnimInstance> UITT_UnitBase::GetAnimInstance() const
+TObjectPtr<UAnimInstance> UITT_UnitBase::GetAnimInstance() const
 {
 	if(const TObjectPtr<AITT_CharacterBase> Character = GetCharacterBase())
 	{
@@ -88,7 +88,7 @@ TObjectPtr<UITT_AnimInstance> UITT_UnitBase::GetAnimInstance() const
 
 float UITT_UnitBase::GetMovingSpeed() const
 {
-	if(const TObjectPtr<UITT_AnimInstance> AnimInstance = GetAnimInstance())
+	if(const TObjectPtr<UITT_AnimInstance> AnimInstance = Cast<UITT_AnimInstance>(GetAnimInstance()))
 	{
 		return AnimInstance->GetMovingSpeed();
 	}

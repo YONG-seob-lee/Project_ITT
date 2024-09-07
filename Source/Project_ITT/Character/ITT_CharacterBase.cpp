@@ -140,7 +140,7 @@ void AITT_CharacterBase::Initialize()
 	{
 		RootSkeletalMeshComponent->Activate();
 
-		if(const TObjectPtr<UITT_AnimInstance> _AnimInstance = GetAnimInstance())
+		if(const TObjectPtr<UITT_AnimInstance> _AnimInstance = Cast<UITT_AnimInstance>(GetAnimInstance()))
 		{
 			_AnimInstance->Initialize();
 		}
@@ -197,14 +197,14 @@ void AITT_CharacterBase::Finalize()
 	{
 		RootSkeletalMeshComponent->Deactivate();
 
-		if(const TObjectPtr<UITT_AnimInstance> _AnimInstance = GetAnimInstance())
+		if(const TObjectPtr<UITT_AnimInstance> _AnimInstance = Cast<UITT_AnimInstance>(GetAnimInstance()))
 		{
 			_AnimInstance->Finalize();
 		}
 	}
 }
 
-TObjectPtr<UITT_AnimInstance> AITT_CharacterBase::GetAnimInstance()
+TObjectPtr<UAnimInstance> AITT_CharacterBase::GetAnimInstance()
 {
 	if(RootSkeletalMeshComponent == nullptr)
 	{
@@ -216,7 +216,7 @@ TObjectPtr<UITT_AnimInstance> AITT_CharacterBase::GetAnimInstance()
 		return AnimInstance;
 	}
 
-	return Cast<UITT_AnimInstance>(RootSkeletalMeshComponent->GetAnimInstance());
+	return RootSkeletalMeshComponent->GetAnimInstance();
 }
 
 void AITT_CharacterBase::SetLodScaleValues(float CullDistanceScale, float OutLineCullDistanceScale,
@@ -337,15 +337,6 @@ void AITT_CharacterBase::BeginPlay()
 void AITT_CharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if(bReceive_React)
-	{
-		if(gInputMng.TestDelegate.IsBound())
-		{
-			gInputMng.TestDelegate.Broadcast(ReactValue);
-		}
-		bReceive_React = false;
-	}
 	
 	if(bInitialize == false)
 	{

@@ -41,32 +41,32 @@ void UITT_SubAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	if (CharacterBase != nullptr && CharacterMovement != nullptr)
 	{
 		bShouldMove = CharacterMovement->GetCurrentAcceleration() != FVector::Zero() && GroundSpeed > MinSpeed;
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] ShouldMove : %d"), bShouldMove ? 1 : 0);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] ShouldMove : %d"), bShouldMove ? 1 : 0);
 
 		
 		// -- Moving -- //
 		Velocity = CharacterMovement->Velocity;
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] Velocity : %f, %f, %f"), Velocity.X, Velocity.Y, Velocity.Z);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] Velocity : %f, %f, %f"), Velocity.X, Velocity.Y, Velocity.Z);
 		
 		GroundSpeed = Velocity.Size2D();
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] GroundSpeed : %f"), GroundSpeed);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] GroundSpeed : %f"), GroundSpeed);
 
 		GroundSpeedPerMaxJogSpeed = GroundSpeed / MaxSpeed;
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] GroundSpeedPerMaxJogSpeed : %f"), GroundSpeedPerMaxJogSpeed);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] GroundSpeedPerMaxJogSpeed : %f"), GroundSpeedPerMaxJogSpeed);
 		
 		bShouldMove = CharacterMovement->GetCurrentAcceleration() != FVector::Zero() && GroundSpeed > MinSpeed;
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] ShouldMove : %d"), bShouldMove ? 1 : 0);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] ShouldMove : %d"), bShouldMove ? 1 : 0);
 
 		
 		// -- Direction -- //
 		ForwardVector = CharacterBase->GetActorForwardVector();
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] ForwardVector : %f, %f, %f"), ForwardVector.X, ForwardVector.Y, ForwardVector.Z);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] ForwardVector : %f, %f, %f"), ForwardVector.X, ForwardVector.Y, ForwardVector.Z);
 		
 		ControlRotation = CharacterBase->GetControlRotation();
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] ControlRotation : %f, %f, %f"), ControlRotation.Roll, ControlRotation.Pitch, ControlRotation.Yaw);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] ControlRotation : %f, %f, %f"), ControlRotation.Roll, ControlRotation.Pitch, ControlRotation.Yaw);
 		
 		ActorRotation = CharacterBase->GetActorRotation();
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] ActorRotation : %f, %f, %f"), ActorRotation.Roll, ActorRotation.Pitch, ActorRotation.Yaw);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] ActorRotation : %f, %f, %f"), ActorRotation.Roll, ActorRotation.Pitch, ActorRotation.Yaw);
 		
 		FaceYaw_Target = ActorRotation.Yaw - ControlRotation.Yaw;
 		if (FaceYaw_Target > 180.f)
@@ -85,11 +85,11 @@ void UITT_SubAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		
 		FaceYaw_Target *= 0.66;
 		FaceYaw_Target = FMath::Clamp(FaceYaw_Target, -60.f, 60.f);
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] FaceYaw_Target : %f"), FaceYaw_Target);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] FaceYaw_Target : %f"), FaceYaw_Target);
 
 		FaceYaw = FaceYaw_Cached + (FaceYaw_Target - FaceYaw_Cached) * (DeltaSeconds / 0.2f);
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] FaceYaw_Cached : %f"), FaceYaw_Cached);
-		ITT_LOG_Verbosity(Warning, TEXT("[Animation] FaceYaw : %f"), FaceYaw);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] FaceYaw_Cached : %f"), FaceYaw_Cached);
+		//ITT_LOG_Verbosity(Warning, TEXT("[Animation] FaceYaw : %f"), FaceYaw);
 		
 		FaceYaw_Cached = FaceYaw;
 	}

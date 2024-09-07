@@ -4,6 +4,8 @@
 #include "ITT_SceneState_Title.h"
 
 #include "Animation/ITT_AnimInstance_Doll.h"
+#include "Animation/ITT_AnimInstance_Rose.h"
+#include "Manager/ITT_InputManager.h"
 #include "PROJECT_ITT/ITT_InstUtil.h"
 #include "PROJECT_ITT/Actor/SpawnPoint/ITT_PlayerSpawnPoint_Rose.h"
 #include "PROJECT_ITT/Character/ITT_CharacterBase.h"
@@ -19,15 +21,26 @@
 void UITT_SceneState_Title::Begin()
 {
 	Super::Begin();
+	SelectData = FITT_SelectData();
+	
+	gInputMng.GetBindSelectDelegate().AddUObject(this, &UITT_SceneState_Title::OnAxisSelect);
 }
 
 void UITT_SceneState_Title::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if(TitleWidget.IsValid())
+	{
+		return;
+	}
+	
+	TitleWidget = Cast<UITT_Widget_Title>(gWidgetMng.GetWidget(UITT_Widget_Title::GetWidgetName()));
 }
 
 void UITT_SceneState_Title::Exit()
 {
+	gInputMng.GetBindSelectDelegate().RemoveAll(this);
 	Super::Exit();
 }
 
@@ -76,6 +89,7 @@ void UITT_SceneState_Title::CreatePlayer()
 	Player = Rose;
 	Player->SetSelfPlayer(true);
 	Player->ChangePlayerState(EITT_UnitState::Title);
+	RoseAnimInst = Cast<UITT_AnimInstance_Rose>(Player->GetAnimInstance());
 
 	const TObjectPtr<AITT_CharacterBase> CharacterBase = Player->GetCharacterBase();
 	if(!CharacterBase)
@@ -134,4 +148,20 @@ void UITT_SceneState_Title::CreateDoll() const
 	}
 
 	Player->SetDollAnimInst(Cast<UITT_AnimInstance_Doll>(MayDoll->GetAnimInstance()), Cast<UITT_AnimInstance_Doll>(CodyDoll->GetAnimInstance()));
+}
+
+void UITT_SceneState_Title::OnAxisSelect(float AxisValue)
+{
+	if(FMath::IsNearlyEqual(AxisValue, 0.f))
+	{
+		return;
+	}
+	
+	const bool bMoveRight = AxisValue > 0;
+	const FITT_ResultSelectData ResultData = SelectData.SetPlayerData(ITT_Player::First, bMoveRight);
+	if(ResultData.bChanged)
+	{
+		TitleWidget->RefreshCharacterState(ResultData.Player, ResultData.NextPosition);
+		RoseAnimInst.Get()->Select(ResultData.NextPosition);
+	}
 }

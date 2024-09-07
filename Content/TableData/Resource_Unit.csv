@@ -1,0 +1,6 @@
+Index,Base_Path,Montage_Path,WalkSpeed,RunSpeed,SprintSpeed,JumpHeight,DoubleJumpHeight,CrouchSpeed,AngleVelocity,CameraZoomSpeed
+1,10001,30001,300,1000,1500,1000,500,150,700,700
+2,10002,30002,300,1000,1500,1000,500,150,700,700
+3,10003,0,0,0,0,0,0,0,0,0
+4,10004,0,0,0,0,0,0,0,0,0
+5,10005,0,0,0,0,0,0,0,0,0

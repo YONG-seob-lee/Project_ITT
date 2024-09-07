@@ -126,7 +126,7 @@ void UITT_BasePlayer::SetActionState(EITT_UnitActionState _ActionState) const
 
 void UITT_BasePlayer::SetMoveSpeed(float MoveSpeed) const
 {
-	if(const TObjectPtr<UITT_AnimInstance> AnimInstance = GetAnimInstance())
+	if(const TObjectPtr<UITT_AnimInstance> AnimInstance = Cast<UITT_AnimInstance>(GetAnimInstance()))
 	{
 		AnimInstance->SetMoveSpeed(MoveSpeed);
 	}

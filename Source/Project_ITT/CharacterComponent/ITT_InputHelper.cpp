@@ -3,6 +3,7 @@
 
 #include "ITT_InputHelper.h"
 
+#include "ITT_Define.h"
 #include "Engine/LocalPlayer.h"
 #include "GameFramework/Controller.h"
 #include "PROJECT_ITT/Character/ITT_CharacterBase.h"
@@ -11,6 +12,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Manager/ITT_InputManager.h"
 
 
 UITT_InputHelper::UITT_InputHelper()
@@ -93,7 +95,8 @@ void UITT_InputHelper::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		EnhancedInputComponent->BindAction(ToggleSprintAction, ETriggerEvent::Started, this, &UITT_InputHelper::InputToggleSprint);
 		EnhancedInputComponent->BindAction(ToggleSprintAction, ETriggerEvent::Completed, this, &UITT_InputHelper::InputStopToggleSprint);
-
+		
+		EnhancedInputComponent->BindAction(SelectAction, ETriggerEvent::Started, this, &UITT_InputHelper::InputSelectDoll);
 		// Ability
 		EnhancedInputComponent->BindAction(Ability1_Fire_Action, ETriggerEvent::Started, this, &UITT_InputHelper::InputAbility1_Fire);
 
@@ -184,6 +187,16 @@ void UITT_InputHelper::InputStopToggleSprint(const FInputActionValue& Value)
 		CharacterBase->GetCharacterMovement()->MaxWalkSpeed = 1000.f;
 		CharacterBase->SetCharacterState(EITT_CharacterState::Movement);
 	}
+}
+
+void UITT_InputHelper::InputSelectDoll(const FInputActionValue& Value)
+{
+	const float MovementSize = Value.Get<float>();
+
+	ITT_LOG(TEXT("%f"), MovementSize);
+	CharacterBase->SetCharacterState(EITT_CharacterState::Select);
+
+	gInputMng.GetBindSelectDelegate().Broadcast(MovementSize);
 }
 
 void UITT_InputHelper::InputAbility1_Fire(const FInputActionValue& Value)

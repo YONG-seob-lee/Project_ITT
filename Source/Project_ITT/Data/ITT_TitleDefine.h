@@ -11,7 +11,8 @@ enum class ITT_Player : uint32
 	Second = 2,
 };
 
-enum class EITT_SelectCharacter : uint32
+UENUM(BlueprintType)
+enum class EITT_SelectCharacter : uint8
 {
 	None = 0,
 	Cody = 1,

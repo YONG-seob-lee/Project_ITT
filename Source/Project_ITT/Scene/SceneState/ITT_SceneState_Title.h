@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Data/ITT_TitleDefine.h"
 #include "PROJECT_ITT/Scene/ITT_SceneBase.h"
 #include "ITT_SceneState_Title.generated.h"
 
@@ -30,10 +31,17 @@ private:
 	void ResetPlayer();
 	void ChangeCamera() const;
 	void CreateDoll() const;
+
+	void OnAxisSelect(float AxisValue);
 	
 	TWeakObjectPtr<class UITT_BasePlayer_Rose> Player;
 	TArray<TWeakObjectPtr<class UITT_BasePlayer>> Dolls;
 	TWeakObjectPtr<class AITT_PlayerSpawnPoint> PlayerSpawnPoint = nullptr;
+	TWeakObjectPtr<class UITT_AnimInstance_Rose> RoseAnimInst = nullptr;
+	
+	// 플레이어들의 상황을 저장하는 데이터
+	FITT_SelectData SelectData;
+	TWeakObjectPtr<class UITT_Widget_Title> TitleWidget = nullptr;
 
 	bool bFirst = false;
 };

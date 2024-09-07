@@ -7,14 +7,14 @@
 
 void UITT_AnimInstance_Rose::Initialize()
 {
-	SelectValue = 0.f;
+	SelectValue = EITT_SelectCharacter::None;
 }
 
 void UITT_AnimInstance_Rose::Finalize()
 {
 }
 
-void UITT_AnimInstance_Rose::Select(float _SelectValue)
+void UITT_AnimInstance_Rose::Select(EITT_SelectCharacter _SelectValue)
 {
 	SelectValue = _SelectValue;
 	UITT_InstUtil::ShowMessageOnScreen(TEXT("Select"));

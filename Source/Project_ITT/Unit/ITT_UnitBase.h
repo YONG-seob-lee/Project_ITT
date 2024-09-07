@@ -32,7 +32,7 @@ public:
 	
 	FORCEINLINE struct FResource_Unit* GetResourceUnitData() const { return ResourceUnitData; }
 
-	TObjectPtr<UITT_AnimInstance> GetAnimInstance() const;
+	TObjectPtr<UAnimInstance> GetAnimInstance() const;
 	
 	FORCEINLINE TObjectPtr<AITT_CharacterBase> GetCharacterBase() const { return CharacterBase.Get(); }
 	FORCEINLINE FVector GetCharacterLocation() const { return CharacterBase->GetCurrentLocation(); }
