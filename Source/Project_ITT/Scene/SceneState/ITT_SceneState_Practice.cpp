@@ -4,16 +4,25 @@
 #include "ITT_SceneState_Practice.h"
 
 #include "Manager/ITT_InputManager.h"
+#include "Manager/ITT_WidgetManager.h"
+#include "Manager/Tool/WidgetTool/ITT_BuiltInWidgetTool.h"
 #include "PROJECT_ITT/ITT_InstUtil.h"
 #include "PROJECT_ITT/Actor/SpawnPoint/ITT_PlayerSpawnPoint.h"
 #include "PROJECT_ITT/Manager/ITT_CameraManager.h"
 #include "PROJECT_ITT/Manager/ITT_UnitManager.h"
 #include "PROJECT_ITT/Unit/ITT_BasePlayer_Cody.h"
 #include "PROJECT_ITT/Unit/ITT_BasePlayer_May.h"
+#include "Widget/Aim/ITT_Widget_Aimed.h"
 
 void UITT_SceneState_Practice::Begin()
 {
 	Super::Begin();
+	gInputMng.GetBindFireDelegate().AddUObject(this, &UITT_SceneState_Practice::ThrowNail);
+	
+	AimWidget = gWidgetMng.GetBuiltInWidgetTool()->GetAimWidget();
+	NailExistMap.Emplace(1, true);
+	NailExistMap.Emplace(2, true);
+	NailExistMap.Emplace(3, true);
 }
 
 void UITT_SceneState_Practice::Tick(float DeltaTime)
@@ -105,4 +114,31 @@ void UITT_SceneState_Practice::ResetPlayer()
 void UITT_SceneState_Practice::ChangeCamera()
 {
 	gCameraMng.ChangeCamera(static_cast<uint8>(EITT_GameCameraType::Practice));
+}
+
+void UITT_SceneState_Practice::ThrowNail()
+{
+	for(auto& PossibleNail : NailExistMap)
+	{
+		if(PossibleNail.Value == true)
+		{
+			AimWidget->NailMovement(PossibleNail.Key,true);
+			PossibleNail.Value = false;
+		}
+	}
+}
+
+bool UITT_SceneState_Practice::TakeNail()
+{
+	for(auto& PossibleNail : NailExistMap)
+	{
+		if(PossibleNail.Value == false)
+		{
+			AimWidget->NailMovement(PossibleNail.Key, false);
+			PossibleNail.Value = true;
+			return true;
+		}
+	}
+
+	return false;
 }

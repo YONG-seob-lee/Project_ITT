@@ -12,7 +12,6 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "Camera/ITT_Actor_Camera.h"
 #include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
 
@@ -134,6 +133,12 @@ void UITT_InputHelper::InputMove(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputJump(const FInputActionValue& Value)
 {
+	const EITT_CharacterState CurrentState = CharacterBase->GetCharacterState();
+	if(CurrentState == EITT_CharacterState::Crouch || CurrentState == EITT_CharacterState::Roll || CurrentState == EITT_CharacterState::Aim || CurrentState == EITT_CharacterState::Dash)
+	{
+		return;
+	}
+	
 	CharacterBase->Jump();
 }
 
@@ -144,7 +149,7 @@ void UITT_InputHelper::InputStopJumping(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputLook(const FInputActionValue& Value)
 {
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
+	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	
 	CharacterBase->AddControllerYawInput(LookAxisVector.X);
 	CharacterBase->AddControllerPitchInput(LookAxisVector.Y);
@@ -152,7 +157,13 @@ void UITT_InputHelper::InputLook(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputDash(const FInputActionValue& Value)
 {
-	CharacterBase->SetCharacterState(EITT_CharacterState::Dash);
+	const EITT_CharacterState CurrentState = CharacterBase->GetCharacterState();
+	if(CurrentState == EITT_CharacterState::Roll)
+	{
+		return;
+	}
+	
+	CharacterBase->SetCharacterState(EITT_CharacterState::Roll);
 }
 
 void UITT_InputHelper::InputGroundPound_Crouch(const FInputActionValue& Value)
@@ -203,10 +214,12 @@ void UITT_InputHelper::InputSelectDoll(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputAbility1_Fire(const FInputActionValue& Value)
 {
+	gInputMng.GetBindFireDelegate().Broadcast();
 }
 
 void UITT_InputHelper::InputAbility2_Aim(const FInputActionValue& Value)
 {
+	CharacterBase->SetCharacterState(EITT_CharacterState::Aim);
 	gInputMng.GetBindAimedDelegate().Broadcast();
 }
 

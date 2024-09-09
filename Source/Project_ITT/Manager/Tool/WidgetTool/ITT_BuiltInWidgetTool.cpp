@@ -6,6 +6,7 @@
 #include "PROJECT_ITT/Manager/ITT_WidgetManager.h"
 #include "PROJECT_ITT/Widget/Fade/ITT_Widget_DialogScreenFader.h"
 #include "PROJECT_ITT/Widget/Fade/ITT_Widget_Toast.h"
+#include "Widget/Aim/ITT_Widget_Aimed.h"
 
 void UITT_BuiltInWidgetTool::BuiltInitialize()
 {
@@ -30,6 +31,14 @@ void UITT_BuiltInWidgetTool::BuiltInitialize()
 		ToastWidget->AddToViewport(1000);
 		ToastWidget->SetZOrder(1000);
 		ToastWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
+
+	AimWidget = Cast<UITT_Widget_Aimed>(gWidgetMng.Create_Widget_NotManaging(UITT_Widget_Aimed::GetWidgetPath()));
+	if(AimWidget)
+	{
+		AimWidget->AddToViewport(1000);
+		AimWidget->SetZOrder(1000);
+		AimWidget->SetVisibility(ESlateVisibility::Collapsed);
 	}
 }
 

@@ -38,7 +38,7 @@ void UITT_InstUtil::ShowMessageOnScreen(const FString& Message, bool bNewerOnTop
 
 TObjectPtr<UWorld> UITT_InstUtil::GetGameWorld()
 {
-	return ThisInstance->GameInstance->GetWorld();
+	return ThisInstance ? ThisInstance->GameInstance->GetWorld() : nullptr;
 }
 
 TObjectPtr<UITT_GameInstance> UITT_InstUtil::GetGameInstance()

@@ -24,7 +24,13 @@ private:
 	void CreatePlayer(const TWeakObjectPtr<class AITT_PlayerSpawnPoint>& _PlayerSpawnPoint);
 	void ResetPlayer();
 	void ChangeCamera();
+
+	void ThrowNail();
+	bool TakeNail();
 	
 	TArray<TWeakObjectPtr<class UITT_BasePlayer>> Players;
 	TArray<TWeakObjectPtr<class AITT_PlayerSpawnPoint>> PlayerSpawnPoints;
+
+	TMap<int32, bool> NailExistMap;
+	TWeakObjectPtr<class UITT_Widget_Aimed> AimWidget;
 };

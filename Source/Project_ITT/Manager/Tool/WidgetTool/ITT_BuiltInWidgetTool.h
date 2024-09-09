@@ -20,6 +20,7 @@ public:
 	FORCEINLINE TObjectPtr<class UITT_Widget_DialogScreenFader> GetDialogScreenFader() const { return DialogScreenFader;}
 	FORCEINLINE TObjectPtr<class UITT_Widget_Toast> GetToastWidget() const { return ToastWidget; }
 	FORCEINLINE TObjectPtr<class UITT_Widget_Loading> GetLoadingWidget() const { return LoadingWidget; }
+	FORCEINLINE TObjectPtr<class UITT_Widget_Aimed> GetAimWidget() const { return AimWidget; }
 	
 	void BuiltInitialize();
 	void Initialize();
@@ -40,4 +41,7 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<UITT_Widget_Loading> LoadingWidget = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UITT_Widget_Aimed> AimWidget = nullptr;
 };
