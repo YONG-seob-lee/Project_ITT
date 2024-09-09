@@ -34,7 +34,8 @@ public:
 	
 	// step3. Activate Camera Actor
 	TObjectPtr<AITT_Actor_Camera> ActiveCamera(EITT_GameCameraType _CameraType, float BlendTime = 0.f);
-	
+
+	TObjectPtr<AITT_Actor_Camera> GetActiveCamera();
 private:
 	void RegistCameraState(uint8 Index, const FName& Name, const TSubclassOf<class UITT_StateBase>& SceneType);
 
@@ -43,7 +44,7 @@ private:
 	UPROPERTY()
 	TObjectPtr<class UITT_StateMachine> CameraStateMachine = nullptr;
 
-	
+	FString CurrentActiveType;
 	TMap<FString, TObjectPtr<class AITT_Actor_Camera>> CameraActors;
 	
 #define gCameraMng (*UITT_CameraManager::GetInstance())

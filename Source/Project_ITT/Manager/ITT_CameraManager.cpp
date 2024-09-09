@@ -59,7 +59,7 @@ void UITT_CameraManager::RegisterCameras()
 	RegistCameraState(static_cast<uint8>(EITT_GameCameraType::Title), TEXT("Title"), UITT_CameraState_Title::StaticClass());
 	RegistCameraState(static_cast<uint8>(EITT_GameCameraType::Chapter_01), TEXT("Chapter_01"), UITT_CameraState_Chapter01::StaticClass());
 	RegistCameraState(static_cast<uint8>(EITT_GameCameraType::Chapter_02), TEXT("Chapter_02"), UITT_CameraState_Chapter02::StaticClass());
-	RegistCameraState(static_cast<uint8>(EITT_GameCameraType::Practice), TEXT("Practice"), UITT_CameraState_CharacterSpringArm::StaticClass());
+	RegistCameraState(static_cast<uint8>(EITT_GameCameraType::Practice), TEXT("Practice"), UITT_CameraState_Practice::StaticClass());
 }
 
 void UITT_CameraManager::ChangeCamera(uint8 Index, bool bInstant) const
@@ -109,7 +109,19 @@ TObjectPtr<AITT_Actor_Camera> UITT_CameraManager::ActiveCamera(EITT_GameCameraTy
 
 	TargetCameraActor->Active(BlendTime);
 
+	CurrentActiveType = CameraType;
+
 	return TargetCameraActor;
+}
+
+TObjectPtr<AITT_Actor_Camera> UITT_CameraManager::GetActiveCamera()
+{
+	if(const TObjectPtr<AITT_Actor_Camera>* CameraActor = CameraActors.Find(CurrentActiveType))
+	{
+		return *CameraActor;
+	}
+	
+	return nullptr;
 }
 
 void UITT_CameraManager::RegistCameraState(uint8 Index, const FName& Name, const TSubclassOf<UITT_StateBase>& SceneType)

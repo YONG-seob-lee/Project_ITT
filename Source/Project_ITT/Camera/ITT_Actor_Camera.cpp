@@ -87,6 +87,14 @@ void AITT_Actor_Camera::SetCameraRelativeLocation(const FVector& Location) const
 	}
 }
 
+void AITT_Actor_Camera::SetCameraRelativeRotation(const FRotator& Rotator) const
+{
+	if(CameraComponent)
+	{
+		CameraComponent->SetRelativeRotation(Rotator);
+	}
+}
+
 void AITT_Actor_Camera::BeginPlay()
 {
 	Super::BeginPlay();
@@ -172,7 +180,7 @@ void AITT_Actor_Camera::Active(float BlendTime)
 	{
 		return;
 	}
-
+	
 	if(PlayerController->GetViewTarget() != this)
 	{
 		BlendTime > 0.f ? PlayerController->SetViewTargetWithBlend(this, BlendTime) : PlayerController->SetViewTarget(this);

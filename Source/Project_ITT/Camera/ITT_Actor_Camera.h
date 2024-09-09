@@ -33,6 +33,7 @@ public:
 
 	void SetRotateNative();
 	void SetCameraRelativeLocation(const FVector& Location) const;
+	void SetCameraRelativeRotation(const FRotator& Rotator) const;
 	
 protected:
 
@@ -65,7 +66,7 @@ protected:
 
 	UPROPERTY(Category = AITT_Actor_Camera, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> CameraComponent = nullptr;
-
+	
 	UPROPERTY(Category = AITT_Actor_Camera, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	FString CameraName;
 
@@ -79,4 +80,6 @@ private:
 	FRotator CachedMovedCameraRotator = FRotator::ZeroRotator;
 	FRotator FirstCameraRotator = FRotator::ZeroRotator;
 	FVector2d CameraJoyStickDistance = FVector2d::ZeroVector;
+
+	bool bAimed = false;
 };

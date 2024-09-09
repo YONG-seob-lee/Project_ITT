@@ -263,6 +263,8 @@ enum class EITT_AndroidButton_Type : uint8
 
 DECLARE_DELEGATE_TwoParams(FBindAllKeysDelegate, const FKey&, bool);
 DECLARE_MULTICAST_DELEGATE_OneParam(FBindSelectDelegate, float);
+DECLARE_MULTICAST_DELEGATE(FBindPickDelegate);
+DECLARE_MULTICAST_DELEGATE(FBindAimedDelegate);
 
 /////////////////////////
 ///

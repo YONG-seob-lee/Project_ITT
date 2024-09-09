@@ -12,6 +12,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Camera/ITT_Actor_Camera.h"
+#include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
 
 
@@ -205,10 +207,15 @@ void UITT_InputHelper::InputAbility1_Fire(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputAbility2_Aim(const FInputActionValue& Value)
 {
+	gInputMng.GetBindAimedDelegate().Broadcast();
 }
 
 void UITT_InputHelper::InputInteract(const FInputActionValue& Value)
 {
+	if(CharacterBase->GetCharacterState() == EITT_CharacterState::Select)
+	{
+		gInputMng.GetBindPickDollDelegate().Broadcast();
+	}
 }
 
 void UITT_InputHelper::InputCancel(const FInputActionValue& Value)

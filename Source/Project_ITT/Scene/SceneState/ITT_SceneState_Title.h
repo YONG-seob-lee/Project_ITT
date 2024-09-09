@@ -33,6 +33,7 @@ private:
 	void CreateDoll() const;
 
 	void OnAxisSelect(float AxisValue);
+	void OnPickDoll();
 	
 	TWeakObjectPtr<class UITT_BasePlayer_Rose> Player;
 	TArray<TWeakObjectPtr<class UITT_BasePlayer>> Dolls;

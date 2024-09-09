@@ -30,13 +30,20 @@ protected:
 private:
 	void ActorTickFunc(TObjectPtr<class UITT_UnitBase> Unit);
 
+	void SetAimed();
+
 	UPROPERTY()
 	TObjectPtr<class AITT_Actor_Camera> Cody_Camera;
 
+	UPROPERTY()
+	TObjectPtr<class AITT_Actor_Camera> Aim_Camera;
+	
 	UPROPERTY()
 	TObjectPtr<class AITT_Actor_Camera> May_Camera;
 	
 	TWeakObjectPtr<class UCapsuleComponent> Cody_CameraCapsuleComponent;
 	
 	FDelegateHandle ActorTickEvent;
+
+	bool bAimed = false;
 };

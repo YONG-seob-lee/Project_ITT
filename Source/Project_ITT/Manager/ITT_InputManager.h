@@ -33,6 +33,8 @@ public:
 
 	FORCEINLINE FBindAllKeysDelegate& GetBindAllKeysDelegate() { return AllKeysDelegate; }
 	FORCEINLINE FBindSelectDelegate& GetBindSelectDelegate() { return OnSelectDollDelegate; }
+	FORCEINLINE FBindPickDelegate& GetBindPickDollDelegate() { return OnPickDollDelegate; }
+	FORCEINLINE FBindAimedDelegate& GetBindAimedDelegate() { return OnAimedDelegate; }
 	
 private:
 	UPROPERTY()
@@ -40,6 +42,8 @@ private:
 
 	FBindAllKeysDelegate AllKeysDelegate;
 	FBindSelectDelegate OnSelectDollDelegate;
+	FBindPickDelegate OnPickDollDelegate;
+	FBindAimedDelegate OnAimedDelegate;
 
 	// todo : 용섭 Input Mapping Part
 	

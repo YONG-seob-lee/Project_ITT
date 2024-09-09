@@ -24,6 +24,7 @@ void UITT_SceneState_Title::Begin()
 	SelectData = FITT_SelectData();
 	
 	gInputMng.GetBindSelectDelegate().AddUObject(this, &UITT_SceneState_Title::OnAxisSelect);
+	gInputMng.GetBindPickDollDelegate().AddUObject(this, &UITT_SceneState_Title::OnPickDoll);
 }
 
 void UITT_SceneState_Title::Tick(float DeltaTime)
@@ -89,8 +90,6 @@ void UITT_SceneState_Title::CreatePlayer()
 	Player = Rose;
 	Player->SetSelfPlayer(true);
 	Player->ChangePlayerState(EITT_UnitState::Title);
-	RoseAnimInst = Cast<UITT_AnimInstance_Rose>(Player->GetAnimInstance());
-
 	const TObjectPtr<AITT_CharacterBase> CharacterBase = Player->GetCharacterBase();
 	if(!CharacterBase)
 	{
@@ -164,4 +163,9 @@ void UITT_SceneState_Title::OnAxisSelect(float AxisValue)
 		TitleWidget->RefreshCharacterState(ResultData.Player, ResultData.NextPosition);
 		RoseAnimInst.Get()->Select(ResultData.NextPosition);
 	}
+}
+
+void UITT_SceneState_Title::OnPickDoll()
+{
+	TitleWidget->SelectState();
 }

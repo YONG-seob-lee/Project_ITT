@@ -3,6 +3,7 @@
 
 #include "ITT_SceneState_Practice.h"
 
+#include "Manager/ITT_InputManager.h"
 #include "PROJECT_ITT/ITT_InstUtil.h"
 #include "PROJECT_ITT/Actor/SpawnPoint/ITT_PlayerSpawnPoint.h"
 #include "PROJECT_ITT/Manager/ITT_CameraManager.h"
