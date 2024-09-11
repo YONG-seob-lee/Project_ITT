@@ -17,6 +17,9 @@ class PROJECT_ITT_API UITT_DataAsset_Roll : public UITT_DataAsset_SubAnimation
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UAnimMontage* Montage;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FITT_AnimSequenceData GroundPound;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

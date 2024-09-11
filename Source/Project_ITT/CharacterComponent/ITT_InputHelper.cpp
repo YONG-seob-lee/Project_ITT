@@ -12,6 +12,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Animation/AnimData/ITT_DataAsset_Roll.h"
 #include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
 
@@ -163,6 +164,11 @@ void UITT_InputHelper::InputDash(const FInputActionValue& Value)
 		return;
 	}
 
+	if(TObjectPtr<class UITT_DataAsset_SubAnimation>* RollData = CharacterBase->GetCharacterStateToAnimationData().Find(EITT_CharacterState::Roll))
+	{
+		CharacterBase->PlayAnimMontage(Cast<UITT_DataAsset_Roll>(*RollData)->Montage);
+	}
+	
 	CharacterBase->SetCharacterState(EITT_CharacterState::Roll);
 }
 

@@ -153,3 +153,15 @@ void UITT_GameInstance::Finish_World()
 		BaseWorld = nullptr;
 	}
 }
+
+void UITT_GameInstance::SplitScreen()
+{
+	UGameViewportClient* GameViewportClient = GetGameViewportClient();
+	if(!GameViewportClient)
+	{
+		return;
+	}
+	
+	GameViewportClient->SetForceDisableSplitscreen(false);
+	GameViewportClient->UpdateActiveSplitscreenType();
+}

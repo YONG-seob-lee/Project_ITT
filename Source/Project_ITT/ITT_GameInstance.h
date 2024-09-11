@@ -40,6 +40,8 @@ private:
 	void Finish_Manager();
 	void Finish_Tick();
 	void Finish_World();
+
+	void SplitScreen();
 	
 	FTSTicker::FDelegateHandle TickDelegateHandle;
 	
