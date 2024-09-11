@@ -16,7 +16,7 @@ void AITTGameMode::InitGame(const FString& MapName, const FString& Options, FStr
 	Second_Controller =  Cast<AITT_PlayerController>(SpawnPlayerController(ROLE_MAX, Option));
 
 	AITT_PlayerController* SecondController = Cast<AITT_PlayerController>(UGameplayStatics::GetPlayerController(UITT_InstUtil::GetGameWorld(), 1));
-
+	
 	if(First_Controller == SecondController)
 	{
 		ITT_LOG(TEXT("First And Second Is Same"));

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonInputTypeEnum.h"
 #include "PROJECT_ITT/Data/ITT_TitleDefine.h"
 #include "PROJECT_ITT/Widget/ITT_Widget.h"
 #include "ITT_Widget_Character_UnSelect.generated.h"
@@ -32,6 +33,10 @@ UCLASS()
 class PROJECT_ITT_API UITT_Widget_Character_UnSelect : public UITT_Widget
 {
 	GENERATED_BODY()
+	
+public:
+	void SetBgColor(FLinearColor _Color);
+	void SetJoyStick(int32 JoyStickIndex);
 
 private:
 	UPROPERTY(meta = (BindWidget))
@@ -56,7 +61,7 @@ public:
 	virtual void InitWidget(const FName& TypeName, bool _bManaged, bool bActivate) override;
 
 	void RefreshCharacterState(ITT_Player Player, EITT_SelectCharacter NextPosition);
-	void SelectCharacterState(bool bSelectCharacter = false, bool bSelectJoyStick = false);
+	void SelectCharacterState(ECommonInputType CommonInput) const;
 
 private:
 

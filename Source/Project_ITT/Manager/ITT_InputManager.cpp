@@ -8,7 +8,21 @@
 
 void UITT_InputManager::Initialize()
 {
-	UITT_Singleton<UITT_InputManager>::Initialize();
+	IPlatformInputDeviceMapper::Get().GetOnInputDeviceConnectionChange().AddUObject(this, &UITT_InputManager::OnControllerConnectionChange);
+	IPlatformInputDeviceMapper::Get().GetOnInputDevicePairingChange().AddUObject(this, &UITT_InputManager::OnControllerPairingChange);
+	
+}
+
+void UITT_InputManager::PostInitialize()
+{
+	if(const TObjectPtr<APlayerController> Controller = UITT_InstUtil::GetPlayerController())
+	{
+		const ULocalPlayer* LocalPlayer = Controller->GetLocalPlayer();
+		if(UCommonInputSubsystem* Input = LocalPlayer->GetSubsystem<UCommonInputSubsystem>())
+		{
+			Input->OnInputMethodChangedNative.AddUObject(this, &UITT_InputManager::OnInputMethodChanged);
+		}	
+	}
 }
 
 void UITT_InputManager::Finalize()
@@ -190,4 +204,26 @@ void UITT_InputManager::Interaction()
 	{
 		InteractionDelegate.Execute();
 	}
+}
+
+void UITT_InputManager::OnControllerConnectionChange(EInputDeviceConnectionState InputDeviceConnectionState,
+	FPlatformUserId PlatformUserId, FInputDeviceId InputDeviceId)
+{
+	const FString ConnectionState = UITT_InstUtil::ConvertEnumToString("EInputDeviceConnectionState", InputDeviceConnectionState);
+	ITT_LOG(TEXT("UITT_InstUtil::OnControllerConnectionChange  CommonInput : %s"), *ConnectionState);
+
+	OnControllerConnectionChangedDelegate.Broadcast(InputDeviceConnectionState);
+}
+
+void UITT_InputManager::OnControllerPairingChange(FInputDeviceId InputDeviceId, FPlatformUserId PlatformUserId,
+	FPlatformUserId PlatformUserId1)
+{
+}
+
+void UITT_InputManager::OnInputMethodChanged(ECommonInputType CommonInput)
+{
+	const FString InputType = UITT_InstUtil::ConvertEnumToString("ECommonInputType", CommonInput);
+	ITT_LOG(TEXT("UITT_InstUtil::OnInputMathodChanged  CommonInput : %s"), *InputType);
+
+	OnInputMethodChangeDelegate.Broadcast(CommonInput);
 }

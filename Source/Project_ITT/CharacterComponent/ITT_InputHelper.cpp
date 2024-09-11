@@ -146,7 +146,7 @@ void UITT_InputHelper::InputStopJumping(const FInputActionValue& Value)
 {
 	CharacterBase->StopJumping();
 }
-
+ 
 void UITT_InputHelper::InputLook(const FInputActionValue& Value)
 {
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
@@ -162,7 +162,7 @@ void UITT_InputHelper::InputDash(const FInputActionValue& Value)
 	{
 		return;
 	}
-	
+
 	CharacterBase->SetCharacterState(EITT_CharacterState::Roll);
 }
 
@@ -214,12 +214,25 @@ void UITT_InputHelper::InputSelectDoll(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputAbility1_Fire(const FInputActionValue& Value)
 {
+	if(CharacterBase->GetCharacterState() != EITT_CharacterState::Aim)
+	{
+		return;
+	}
+	CharacterBase->SetCharacterState(EITT_CharacterState::Fire);
 	gInputMng.GetBindFireDelegate().Broadcast();
 }
 
 void UITT_InputHelper::InputAbility2_Aim(const FInputActionValue& Value)
 {
-	CharacterBase->SetCharacterState(EITT_CharacterState::Aim);
+	if(CharacterBase->GetCharacterState() == EITT_CharacterState::Aim)
+	{
+		CharacterBase->SetCharacterState(EITT_CharacterState::Movement);
+	}
+	else
+	{
+		CharacterBase->SetCharacterState(EITT_CharacterState::Aim);
+	}
+	
 	gInputMng.GetBindAimedDelegate().Broadcast();
 }
 

@@ -3,6 +3,9 @@
 
 #include "ITT_Widget_Character_UnSelect.h"
 
+#include "Components/Image.h"
+#include "Components/WidgetSwitcher.h"
+
 namespace ChooseAnimation
 {
 	const FName F_Player_Select_Cody = TEXT("1p_Select_Cody");
@@ -15,10 +18,23 @@ namespace ChooseAnimation
 	const FName S_Player_UnSelect_May = TEXT("2p_UnSelect_May");
 }
 
+void UITT_Widget_Character_UnSelect::SetBgColor(FLinearColor _Color)
+{
+	CPP_Bg->SetBrushTintColor(FSlateColor(_Color));
+}
+
+void UITT_Widget_Character_UnSelect::SetJoyStick(int32 JoyStickIndex)
+{
+	CPP_JoyStickSwitcher->SetActiveWidgetIndex(JoyStickIndex);
+}
+
 void UITT_Widget_Choose_Character::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	CPP_1P->SetBgColor(FLinearColor(1.0f, 0.239583f, 0.239583f, 1.f));
+	CPP_2P->SetBgColor(FLinearColor(0.206075f, 0.312894f, 1.f, 1.f));
+	
 	CPP_MaySelected->SetVisibility(ESlateVisibility::Collapsed);
 	CPP_CodySelected->SetVisibility(ESlateVisibility::Collapsed);
 
@@ -100,16 +116,7 @@ void UITT_Widget_Choose_Character::RefreshCharacterState(ITT_Player Player, EITT
 	}
 }
 
-void UITT_Widget_Choose_Character::SelectCharacterState(bool bSelectCharacter, bool bSelectJoyStick)
+void UITT_Widget_Choose_Character::SelectCharacterState(ECommonInputType CommonInput) const
 {
-	if(bSelectCharacter == false)
-	{
-		if(bSelectJoyStick == true)
-		{
-			ITT_LOG(TEXT("Wrong Boolean Value. Please Check Data"));
-			return;
-		}
-
-		// 캐릭터 선택 애니메이션 및 조이스틱 선택 애니메이션 출력
-	}
+	CPP_1P->SetJoyStick(static_cast<int32>(CommonInput));
 }

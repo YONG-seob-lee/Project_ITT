@@ -146,7 +146,7 @@ void UITT_CameraState_Practice::ActorTickFunc(TObjectPtr<UITT_UnitBase> Unit)
 		Aim_Camera->SetFieldOfView(80.f);
 		Cody_Camera->SetSpringOffset(FVector(0.f, 0.f, 140.f));
 		Cody_Camera->SetCameraDistance(FVector(0.f, 0.f, 140.f).Size());
-		Aim_Camera->SetCameraRelativeLocation(FVector(-200.f, 100.f, 50.f));
+		Aim_Camera->SetCameraRelativeLocation(FVector(-300.f, 100.f, 50.f));
 		Aim_Camera->SetCameraRelativeRotation(FRotator(0.f, 0.f, 0.f));
 		Aim_Camera->SetTargetRotator(FRotator(0.f, 0.f, 0.f));
 		

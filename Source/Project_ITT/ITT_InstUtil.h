@@ -7,6 +7,7 @@
 #include "UObject/Object.h"
 #include "ITT_Define.h"
 #include "Engine/StreamableManager.h"
+#include "CommonInputSubsystem.h"
 #include "ITT_InstUtil.generated.h"
 
 namespace CharacterName
@@ -71,7 +72,7 @@ public:
 	template<typename TEnum>
 	static FString ConvertEnumToString(const FString& EnumString, TEnum EnumType)
 	{
-		const UEnum* pEnum = FindObject<UEnum>(nullptr, *EnumString);
+		const UEnum* pEnum = FindObject<UEnum>(ANY_PACKAGE, *EnumString);
 		if (!pEnum)
 		{
 			return FString("");
@@ -84,7 +85,7 @@ public:
 	template<typename TEnum>
 static FName ConvertEnumToName(const FString& EnumString, TEnum EnumType)
 	{
-		const UEnum* pEnum = FindObject<UEnum>(nullptr, *EnumString);
+		const UEnum* pEnum = FindObject<UEnum>(ANY_PACKAGE, *EnumString);
 		if (!pEnum)
 		{
 			return FName("");
@@ -93,10 +94,9 @@ static FName ConvertEnumToName(const FString& EnumString, TEnum EnumType)
 		const int32 Index = pEnum->GetIndexByValue(static_cast<int32>(EnumType));
 		return pEnum->GetNameByValue(Index);
 	}
-
-
 	
 private:
+	
 	static TObjectPtr<UITT_InstUtil> ThisInstance;
 
 	UPROPERTY()

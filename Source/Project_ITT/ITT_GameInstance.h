@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonButtonBase.h"
 #include "Engine/GameInstance.h"
 #include "ITT_GameInstance.generated.h"
 

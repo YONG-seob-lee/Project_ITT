@@ -10,8 +10,8 @@ public class Project_ITT : ModuleRules
 		
 		PrivateIncludePaths.Add("Project_ITT");
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "ApplicationCore", "Engine", "InputCore", "EnhancedInput", "UMG" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "Slate", "SlateCore", "NiagaraUIRenderer"  });
+		PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "Slate", "SlateCore", "NiagaraUIRenderer", "CommonInput"  });
 	}
 }

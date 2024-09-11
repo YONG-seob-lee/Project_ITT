@@ -9,7 +9,7 @@
 #include "Actor/SpawnPoint/ITT_PlayerSpawnPoint_May.h"
 #include "Actor/SpawnPoint/ITT_PlayerSpawnPoint_Rose.h"
 #include "Character/ITT_CharacterBase.h"
-#include "GameFramework/Character.h"
+#include "CommonInputSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "Slate/SceneViewport.h"
 

@@ -90,13 +90,14 @@ void UITT_SceneState_Title::CreatePlayer()
 	Player = Rose;
 	Player->SetSelfPlayer(true);
 	Player->ChangePlayerState(EITT_UnitState::Title);
-	const TObjectPtr<AITT_CharacterBase> CharacterBase = Player->GetCharacterBase();
+	TObjectPtr<AITT_CharacterBase> CharacterBase = nullptr;
+	CharacterBase = Player->GetCharacterBase();
 	if(!CharacterBase)
 	{
 		return;
 	}
 	CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
-
+	RoseAnimInst = Cast<UITT_AnimInstance_Rose>(CharacterBase->GetAnimInstance());
 	UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(Rose));
 	UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase));
 }

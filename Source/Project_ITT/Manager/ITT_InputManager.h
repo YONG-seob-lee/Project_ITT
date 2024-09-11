@@ -3,10 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonInputTypeEnum.h"
 #include "ITT_Singleton.h"
 #include "UObject/Object.h"
 #include "ITT_InputManager.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnInputMethodChanged, ECommonInputType);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnControllerConnectionChanged, EInputDeviceConnectionState);
 /**
  * 
  */
@@ -16,6 +19,7 @@ class PROJECT_ITT_API UITT_InputManager : public UObject, public UITT_Singleton<
 	GENERATED_BODY()
 public:
 	virtual void Initialize() override;
+	virtual void PostInitialize() override;
 	virtual void Finalize() override;
 	virtual void Tick(float _DeltaTime) override;
 
@@ -30,6 +34,10 @@ public:
 	
 	void CreateInputPawn();
 	void DestroyInputPawn();
+	
+	FOnInputMethodChanged& GetOnInputMethodChange() { return OnInputMethodChangeDelegate; }
+	FOnControllerConnectionChanged& GetOnControllerConnectionChanged() { return OnControllerConnectionChangedDelegate; }
+	
 
 	FORCEINLINE FBindAllKeysDelegate& GetBindAllKeysDelegate() { return AllKeysDelegate; }
 	FORCEINLINE FBindSelectDelegate& GetBindSelectDelegate() { return OnSelectDollDelegate; }
@@ -41,6 +49,10 @@ private:
 	UPROPERTY()
 	TObjectPtr<class AITT_Pawn_Input> InputPawn = nullptr;
 
+
+	FOnControllerConnectionChanged OnControllerConnectionChangedDelegate;
+	FOnInputMethodChanged OnInputMethodChangeDelegate;
+	
 	FBindAllKeysDelegate AllKeysDelegate;
 	FBindSelectDelegate OnSelectDollDelegate;
 	FBindPickDelegate OnPickDollDelegate;
@@ -66,6 +78,11 @@ public:
 	void Interaction();
 
 private:
+	
+	void OnControllerConnectionChange(EInputDeviceConnectionState InputDeviceConnectionState, FPlatformUserId PlatformUserId, FInputDeviceId InputDeviceId);
+	void OnControllerPairingChange(FInputDeviceId InputDeviceId, FPlatformUserId PlatformUserId, FPlatformUserId PlatformUserId1);
+	void OnInputMethodChanged(ECommonInputType CommonInput);
+	
 	FInputAxisBinding CharacterMove_UpDownEvent = FInputAxisBinding(TEXT("CharacterMove_UpDown"));
 	FInputAxisBinding CharacterMove_LeftRightEvent = FInputAxisBinding(TEXT("CharacterMove_LeftRight"));
 	

@@ -4,6 +4,7 @@
 #include "ITT_GameInstance.h"
 #include "ITT_InstUtil.h"
 #include "Manager/ITT_CameraManager.h"
+#include "Manager/ITT_InputManager.h"
 #include "Manager/ITT_SceneManager.h"
 #include "Manager/ITT_SingletonManager.h"
 
@@ -55,6 +56,7 @@ bool UITT_GameInstance::Tick(float DeltaSeconds)
 	if(bExecuteLodeLevel)
 	{
 		gSceneMng.ExecuteLoadLevelDelegate();
+		gInputMng.PostInitialize();
 		bExecuteLodeLevel = false;
 	}
 	
