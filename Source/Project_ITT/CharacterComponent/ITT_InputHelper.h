@@ -55,6 +55,9 @@ public:
 
 	void InputFindOtherPlayer(const struct FInputActionValue& Value);
 
+	void InputTestMove(const FInputActionValue& Value);
+	void InputTestInput(const FInputActionValue& Value);
+	
 public:
 	bool CanSprint() const;
 	
@@ -109,4 +112,10 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ITTInput, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* FindOtherPlayerAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ITTInput, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* TestMove;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = ITTInput, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* TestInput;
 };

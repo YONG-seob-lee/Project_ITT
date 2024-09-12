@@ -32,7 +32,7 @@ public:
 private:
 	
 	TSharedPtr<FITT_PreTouchProcessor> PreTouchProcessor;
-	
+
 	UPROPERTY()
 	TObjectPtr<UITT_Widget_DialogScreenFader> DialogScreenFader = nullptr;
 

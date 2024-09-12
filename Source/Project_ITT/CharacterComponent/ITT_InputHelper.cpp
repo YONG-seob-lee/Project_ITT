@@ -109,6 +109,10 @@ void UITT_InputHelper::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(CancelAction, ETriggerEvent::Started, this, &UITT_InputHelper::InputCancel);
 		
 		EnhancedInputComponent->BindAction(FindOtherPlayerAction, ETriggerEvent::Started, this, &UITT_InputHelper::InputFindOtherPlayer);
+
+		//  Test
+		EnhancedInputComponent->BindAction(TestMove, ETriggerEvent::Started, this, &UITT_InputHelper::InputTestMove);
+		EnhancedInputComponent->BindAction(TestInput, ETriggerEvent::Started, this, &UITT_InputHelper::InputTestInput);
 	}
 }
 
@@ -256,6 +260,18 @@ void UITT_InputHelper::InputCancel(const FInputActionValue& Value)
 
 void UITT_InputHelper::InputFindOtherPlayer(const FInputActionValue& Value)
 {
+}
+
+void UITT_InputHelper::InputTestMove(const FInputActionValue& Value)
+{
+	const FVector2D MovementVector = Value.Get<FVector2D>();
+
+	gInputMng.GetScreenMoveDelegate().Broadcast(MovementVector);
+}
+
+void UITT_InputHelper::InputTestInput(const FInputActionValue& Value)
+{
+	gInputMng.GetScreenSplitTypeDelegate().Broadcast();
 }
 
 bool UITT_InputHelper::CanSprint() const

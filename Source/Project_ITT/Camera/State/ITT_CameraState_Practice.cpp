@@ -5,6 +5,8 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Manager/ITT_InputManager.h"
+#include "Manager/ITT_WidgetManager.h"
+#include "Manager/Tool/WidgetTool/ITT_BuiltInWidgetTool.h"
 #include "PROJECT_ITT/ITT_InstUtil.h"
 #include "PROJECT_ITT/ITT_PlayerController.h"
 #include "PROJECT_ITT/Camera/ITT_Actor_Camera.h"

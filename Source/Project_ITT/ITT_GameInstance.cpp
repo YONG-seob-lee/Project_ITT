@@ -3,6 +3,7 @@
 
 #include "ITT_GameInstance.h"
 #include "ITT_InstUtil.h"
+#include "GameMode/ITT_GameViewportClient.h"
 #include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
 #include "Manager/ITT_SceneManager.h"
@@ -61,6 +62,14 @@ bool UITT_GameInstance::Tick(float DeltaSeconds)
 	}
 	
 	return true;
+}
+
+void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnectionState NewConnectionState,
+	FPlatformUserId PlatformUserId, FInputDeviceId InputDeviceId)
+{
+	Super::HandleInputDeviceConnectionChange(NewConnectionState, PlatformUserId, InputDeviceId);
+
+	SplitScreen(InputDeviceId.GetId());
 }
 
 void UITT_GameInstance::OnStartGameInstance(UGameInstance* GameInstance)
@@ -154,14 +163,23 @@ void UITT_GameInstance::Finish_World()
 	}
 }
 
-void UITT_GameInstance::SplitScreen()
+void UITT_GameInstance::SplitScreen(int32 InputDeviceId)
 {
-	UGameViewportClient* GameViewportClient = GetGameViewportClient();
-	if(!GameViewportClient)
+	if(InputDeviceId == 1)
 	{
-		return;
-	}
+		UITT_GameViewportClient* GameViewportClient = Cast<UITT_GameViewportClient>(GetGameViewportClient());
+		if(!GameViewportClient)
+		{
+			return;
+		}
 	
-	GameViewportClient->SetForceDisableSplitscreen(false);
-	GameViewportClient->UpdateActiveSplitscreenType();
+		//GameViewportClient->SetForceDisableSplitscreen(false);
+		////GameViewportClient->UpdateActiveSplitscreenType();
+		FString OutError;
+		ULocalPlayer* NewLocalPlayer = CreateLocalPlayer(InputDeviceId, OutError, true);
+		
+		const TArray<ULocalPlayer*> LPS = GetLocalPlayers();
+
+		//GameViewportClient->UpdateType(ESplitScreenType::Type::TwoPlayer_Vertical);
+	}
 }

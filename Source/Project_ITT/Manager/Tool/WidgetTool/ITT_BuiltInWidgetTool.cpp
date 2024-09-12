@@ -13,7 +13,7 @@ void UITT_BuiltInWidgetTool::BuiltInitialize()
 	PreTouchProcessor = MakeShareable(new FITT_PreTouchProcessor());
 	FSlateApplication::Get().RegisterInputPreProcessor(PreTouchProcessor);
 	PreTouchProcessor->Initialize();
-	
+
 	DialogScreenFader = Cast<UITT_Widget_DialogScreenFader>(gWidgetMng.Create_Widget_NotManaging(UITT_Widget_DialogScreenFader::GetWidgetPath()));
 	if(DialogScreenFader)
 	{

@@ -44,6 +44,8 @@ public:
 	FORCEINLINE FBindPickDelegate& GetBindPickDollDelegate() { return OnPickDollDelegate; }
 	FORCEINLINE FBindFireDelegate GetBindFireDelegate() { return OnFireDelegate; }
 	FORCEINLINE FBindAimedDelegate& GetBindAimedDelegate() { return OnAimedDelegate; }
+	FORCEINLINE FBindScreenMoveDelegate& GetScreenMoveDelegate() { return OnScreenMoveDelegate; }
+	FORCEINLINE FBindScreenSplitTypeDelegate& GetScreenSplitTypeDelegate() { return OnScreenSplitTypeDelegate; }
 	
 private:
 	UPROPERTY()
@@ -58,6 +60,9 @@ private:
 	FBindPickDelegate OnPickDollDelegate;
 	FBindAimedDelegate OnAimedDelegate;
 	FBindFireDelegate OnFireDelegate;
+
+	FBindScreenMoveDelegate OnScreenMoveDelegate;
+	FBindScreenSplitTypeDelegate OnScreenSplitTypeDelegate;
 	
 	// todo : 용섭 Input Mapping Part
 	

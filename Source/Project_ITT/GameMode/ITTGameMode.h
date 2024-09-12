@@ -18,9 +18,4 @@ public:
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 
 private:
-	UPROPERTY()
-	TObjectPtr<class AITT_PlayerController> First_Controller = nullptr;
-
-	UPROPERTY()
-	TObjectPtr<class AITT_PlayerController> Second_Controller = nullptr;
 };
