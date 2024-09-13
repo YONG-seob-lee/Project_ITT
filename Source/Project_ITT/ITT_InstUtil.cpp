@@ -11,6 +11,7 @@
 #include "Character/ITT_CharacterBase.h"
 #include "CommonInputSubsystem.h"
 #include "Kismet/GameplayStatics.h"
+#include "Manager/ITT_SceneManager.h"
 #include "Slate/SceneViewport.h"
 
 TObjectPtr<UITT_InstUtil> UITT_InstUtil::ThisInstance = nullptr;
@@ -31,6 +32,16 @@ float UITT_InstUtil::GetAspectRatio()
 	return GetGameViewport()->GetDesiredAspectRatio();
 }
 
+EITT_GameSceneType UITT_InstUtil::GetCurrentSceneType()
+{
+	if(gSceneMng.HasInstance())
+	{
+		return gSceneMng.GetCurrentSceneType();
+	}
+
+	return EITT_GameSceneType::None;
+}
+
 void UITT_InstUtil::ShowMessageOnScreen(const FString& Message, bool bNewerOnTop, float ElapsedTime, FColor DisplayColor)
 {
 	GEngine->AddOnScreenDebugMessage(-1, ElapsedTime, DisplayColor, Message);
@@ -46,7 +57,7 @@ TObjectPtr<UITT_GameInstance> UITT_InstUtil::GetGameInstance()
 	return ThisInstance->GameInstance == nullptr ? nullptr : ThisInstance->GameInstance;
 }
 
-TObjectPtr<APlayerController> UITT_InstUtil::GetPlayerController()
+TObjectPtr<APlayerController> UITT_InstUtil::GetPlayerController(int32 PlayerIndex /* = 0 */)
 {
 	const TObjectPtr<UWorld> World = GetGameWorld();
 	if(World == nullptr)
@@ -54,7 +65,7 @@ TObjectPtr<APlayerController> UITT_InstUtil::GetPlayerController()
 		return nullptr;
 	}
 
-	const TObjectPtr<APlayerController> Controller = UGameplayStatics::GetPlayerController(World, 0);
+	const TObjectPtr<APlayerController> Controller = UGameplayStatics::GetPlayerController(World, PlayerIndex);
 	
 	return Controller ? Controller : nullptr;
 }
@@ -210,9 +221,9 @@ void UITT_InstUtil::AssignUnitHandle(ITT_Handle _UnitHandle)
 	}	
 }
 
-void UITT_InstUtil::OnPossessUnit(const TObjectPtr<AITT_CharacterBase>& CharacterBase)
+void UITT_InstUtil::OnPossessUnit(const TObjectPtr<AITT_CharacterBase>& CharacterBase, int32 PlayerIndex /* = 0 */)
 {
-	if(const TObjectPtr<AITT_PlayerController> PlayerController = Cast<AITT_PlayerController>(GetPlayerController()))
+	if(const TObjectPtr<AITT_PlayerController> PlayerController = Cast<AITT_PlayerController>(GetPlayerController(PlayerIndex)))
 	{
 		PlayerController->Possess(CharacterBase);
 	}

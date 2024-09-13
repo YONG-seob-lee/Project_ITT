@@ -27,6 +27,7 @@ public:
 	bool Tick(float DeltaSeconds);
 
 	virtual void HandleInputDeviceConnectionChange(EInputDeviceConnectionState NewConnectionState, FPlatformUserId PlatformUserId, FInputDeviceId InputDeviceId) override;
+	virtual void HandleInputDevicePairingChange(FInputDeviceId InputDeviceId, FPlatformUserId NewUserPlatformId, FPlatformUserId OldUserPlatformId);
 private:
 	void OnStartGameInstance(UGameInstance* GameInstance);
 	
@@ -42,7 +43,8 @@ private:
 	void Finish_Tick();
 	void Finish_World();
 
-	void SplitScreen(int32 InputDeviceId);
+	void SplitScreen(int32 InputDeviceId) const;
+	void SplitScreen(ESplitScreenType::Type ScreenType) const;
 	
 	FTSTicker::FDelegateHandle TickDelegateHandle;
 	

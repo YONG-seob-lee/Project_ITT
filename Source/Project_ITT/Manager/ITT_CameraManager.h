@@ -24,28 +24,25 @@ public:
 	void RegisterCameras();
 
 	// step1. Activate Camera State
-	void ChangeCamera(uint8 Index, bool bInstant = true) const;
+	void ChangeCameraState(uint8 Index, bool bInstant = true);
 
-	// step2. Valid Check Has Camera Actor 
-	bool HasCamera(EITT_GameCameraType CameraType) const;
-	
 	// step2. Create Camera Actor
 	TObjectPtr<class AITT_Actor_Camera> CreateCameraActor(const TSubclassOf<AITT_Actor_Camera>& CameraActorType, EITT_GameCameraType _CameraType);
 	
 	// step3. Activate Camera Actor
-	TObjectPtr<AITT_Actor_Camera> ActiveCamera(EITT_GameCameraType _CameraType, float BlendTime = 0.f);
+	bool ActiveCamera(const TObjectPtr<AITT_Actor_Camera>& _ActiveCamera, float BlendTime = 0.f) const;
 
 	TObjectPtr<AITT_Actor_Camera> GetActiveCamera();
 private:
 	void RegistCameraState(uint8 Index, const FName& Name, const TSubclassOf<class UITT_StateBase>& SceneType);
 
-	void AddCameraActor(const FString& CameraType, TObjectPtr<AITT_Actor_Camera> CameraActor);
+	void AddCameraActor(TObjectPtr<AITT_Actor_Camera> CameraActor);
 	
 	UPROPERTY()
 	TObjectPtr<class UITT_StateMachine> CameraStateMachine = nullptr;
 
-	FString CurrentActiveType;
-	TMap<FString, TObjectPtr<class AITT_Actor_Camera>> CameraActors;
+	EITT_GameCameraType CurrentActiveType;
+	TArray<TObjectPtr<AITT_Actor_Camera>> CameraActors;
 	
 #define gCameraMng (*UITT_CameraManager::GetInstance())
 };

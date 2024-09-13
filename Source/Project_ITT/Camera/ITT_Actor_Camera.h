@@ -34,7 +34,10 @@ public:
 	void SetRotateNative();
 	void SetCameraRelativeLocation(const FVector& Location) const;
 	void SetCameraRelativeRotation(const FRotator& Rotator) const;
-	
+
+	FORCEINLINE bool IsActivate() const { return bActivate; }
+	FORCEINLINE void SetCameraType(EITT_GameCameraType _CameraType) { CameraType = _CameraType;}
+	FORCEINLINE EITT_GameCameraType GetCameraType() const { return CameraType; } 
 protected:
 
 	virtual void BeginPlay() override;
@@ -54,9 +57,11 @@ public:
 	void Destroy();
 	void PreProcess(float DeltaSeconds);
 	void Active(float BlendTime = -1.f);
+	void Deactive();
 	
 	virtual void Tick(float DeltaTime) override;
-	
+
+	EITT_GameCameraType CameraType = EITT_GameCameraType::None;
 protected:
 	UPROPERTY(Category = AITT_CameraActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<USceneComponent> SceneComponent = nullptr;
@@ -75,6 +80,8 @@ protected:
 	
 private:
 	void SetAspectRatio(float AspectRatio) const;
+	
+	bool bActivate = false;
 	
 	ITT_Handle CameraHandle = InvalidUnitHandle;
 	FRotator CachedMovedCameraRotator = FRotator::ZeroRotator;

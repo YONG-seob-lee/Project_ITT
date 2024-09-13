@@ -41,7 +41,7 @@ public:
 	
 	FITT_UnitActorTickDelegate OnActorTickDelegate;
 
-	
+	FORCEINLINE ITT_Character GetUnitTableId() { return static_cast<ITT_Character>(ResourceUnitTableId); }
 protected:
 	bool CreateActionStateMachine();
 	void DestroyActionStateMachine();

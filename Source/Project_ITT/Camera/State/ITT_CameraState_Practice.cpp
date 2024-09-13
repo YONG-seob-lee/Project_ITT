@@ -43,7 +43,7 @@ void UITT_CameraState_Practice::Begin()
 	InitCamera();
 	
 	// Step 02. 해당 카메라 활성화
-	gCameraMng.ActiveCamera(EITT_GameCameraType::Practice);
+	gCameraMng.ActiveCamera(Cody_Camera);
 }
 
 void UITT_CameraState_Practice::Tick(float DeltaTime)
@@ -110,7 +110,7 @@ void UITT_CameraState_Practice::InitCamera()
 		}
 	}
 	
-	if(const TObjectPtr<UITT_UnitBase> PlayerUnit = gUnitMng.GetCurrentUnit())
+	if(const TObjectPtr<UITT_UnitBase> PlayerUnit = gUnitMng.GetUnitTableId(ITT_Character::Cody))
 	{
 		ActorTickEvent = PlayerUnit->OnActorTickDelegate.AddUObject(this, &UITT_CameraState_Practice::ActorTickFunc);
 		IsValid(PlayerUnit);
@@ -158,16 +158,14 @@ void UITT_CameraState_Practice::ActorTickFunc(TObjectPtr<UITT_UnitBase> Unit)
 
 void UITT_CameraState_Practice::SetAimed()
 {
-	const TObjectPtr<APlayerController> Controller = UITT_InstUtil::GetPlayerController();
-
 	if(bAimed == false)
 	{
-		Controller->SetViewTargetWithBlend(Aim_Camera, 0.2f);
+		gCameraMng.ActiveCamera(Aim_Camera, 0.2f);
 		bAimed = true;
 	}
 	else
 	{
-		Controller->SetViewTargetWithBlend(Cody_Camera, 0.2f);
+		gCameraMng.ActiveCamera(Cody_Camera, 0.2f);
 		bAimed = false;
 	}
 }

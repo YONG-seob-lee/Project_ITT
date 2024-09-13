@@ -42,23 +42,23 @@ void AITT_Pawn_Input::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 			return;
 		}
 	}
-	UITT_InputManager* InputManager = gInputMng.GetInstance();
-	NewInputComponent->BindAxis("LEFT_AXIS_UPDOWN", InputManager, &UITT_InputManager::LeftAxisUpDown);
-	NewInputComponent->BindAxis("LEFT_AXIS_LEFTRIGHT", InputManager, &UITT_InputManager::LeftAxisLeftRight);
-	NewInputComponent->BindAxis("RIGHT_AXIS_UPDOWN", InputManager, &UITT_InputManager::RightAxisUpDown);
-	NewInputComponent->BindAxis("RIGHT_AXIS_LEFTRIGHT", InputManager, &UITT_InputManager::RightAxisLeftRight);
-
-	NewInputComponent->BindAxis("LEFT_AXIS_SELECT", InputManager, &UITT_InputManager::LeftAxis_Select);
-
-	NewInputComponent->BindTouch(IE_Pressed, InputManager, &UITT_InputManager::OnTouchDown);
-	NewInputComponent->BindTouch(IE_Released, InputManager, &UITT_InputManager::OnTouchUp);
-	NewInputComponent->BindTouch(IE_Repeat, InputManager, &UITT_InputManager::OnTouchMove);
-
-	NewInputComponent->BindAction("AndroidBack", IE_Pressed, InputManager, &UITT_InputManager::AndroidBack);
-	NewInputComponent->BindAction("AndroidMenu", IE_Pressed, InputManager, &UITT_InputManager::AndroidMenu);
-
-	// Todo 용섭 : 아래의 방식대로 인풋을 커스텀 하면 된다.
-	NewInputComponent->BindAction("Interaction", IE_Pressed, InputManager, &UITT_InputManager::Interaction);
+	//UITT_InputManager* InputManager = gInputMng.GetInstance();
+	// NewInputComponent->BindAxis("LEFT_AXIS_UPDOWN", InputManager, &UITT_InputManager::LeftAxisUpDown);
+	// NewInputComponent->BindAxis("LEFT_AXIS_LEFTRIGHT", InputManager, &UITT_InputManager::LeftAxisLeftRight);
+	// NewInputComponent->BindAxis("RIGHT_AXIS_UPDOWN", InputManager, &UITT_InputManager::RightAxisUpDown);
+	// NewInputComponent->BindAxis("RIGHT_AXIS_LEFTRIGHT", InputManager, &UITT_InputManager::RightAxisLeftRight);
+	//
+	// NewInputComponent->BindAxis("LEFT_AXIS_SELECT", InputManager, &UITT_InputManager::LeftAxis_Select);
+	//
+	// NewInputComponent->BindTouch(IE_Pressed, InputManager, &UITT_InputManager::OnTouchDown);
+	// NewInputComponent->BindTouch(IE_Released, InputManager, &UITT_InputManager::OnTouchUp);
+	// NewInputComponent->BindTouch(IE_Repeat, InputManager, &UITT_InputManager::OnTouchMove);
+	//
+	// NewInputComponent->BindAction("AndroidBack", IE_Pressed, InputManager, &UITT_InputManager::AndroidBack);
+	// NewInputComponent->BindAction("AndroidMenu", IE_Pressed, InputManager, &UITT_InputManager::AndroidMenu);
+	//
+	// // Todo 용섭 : 아래의 방식대로 인풋을 커스텀 하면 된다.
+	// NewInputComponent->BindAction("Interaction", IE_Pressed, InputManager, &UITT_InputManager::Interaction);
 	
 }
 

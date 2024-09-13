@@ -8,6 +8,8 @@
 #include "Manager/ITT_InputManager.h"
 #include "Manager/ITT_SceneManager.h"
 #include "Manager/ITT_SingletonManager.h"
+#include "Manager/ITT_UnitManager.h"
+#include "Unit/ITT_UnitBase.h"
 
 UITT_GameInstance::UITT_GameInstance()
 {
@@ -70,6 +72,55 @@ void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnection
 	Super::HandleInputDeviceConnectionChange(NewConnectionState, PlatformUserId, InputDeviceId);
 
 	SplitScreen(InputDeviceId.GetId());
+
+	if(InputDeviceId.GetId() == 1)
+	{
+		if(NewConnectionState == EInputDeviceConnectionState::Connected)
+		{
+			const TArray<ULocalPlayer*> Players = GetLocalPlayers();
+			if(Players.Num() == 2)
+			{
+				// if(Players.IsValidIndex(0))
+				// {
+				// 	if(const TObjectPtr<UITT_UnitBase> CodyUnit = gUnitMng.GetUnitTableId(ITT_Character::Cody))
+				// 	{
+				// 		Players[0]->PlayerController->Possess(CodyUnit->GetCharacterBase());
+				//
+				// 	}
+				// }
+
+				if(Players.IsValidIndex(1))
+				{
+					if(const TObjectPtr<UITT_UnitBase> MayUnit = gUnitMng.GetUnitTableId(ITT_Character::May))
+					{
+						Players[1]->PlayerController->Possess(MayUnit->GetCharacterBase());
+						ITT_LOG(TEXT("asdf"));
+					}
+				}
+			}
+
+			if(UITT_InstUtil::GetCurrentSceneType() <= EITT_GameSceneType::Title)
+			{
+				SplitScreen(ESplitScreenType::None);
+			}
+			else
+			{
+				SplitScreen(ESplitScreenType::TwoPlayer_Vertical);
+			}
+		}
+		else if(NewConnectionState == EInputDeviceConnectionState::Disconnected)
+		{
+			//Pause
+			SplitScreen(ESplitScreenType::None);
+		}
+		EITT_GameSceneType CurrentSceneType =UITT_InstUtil::GetCurrentSceneType();
+	}
+}
+
+void UITT_GameInstance::HandleInputDevicePairingChange(FInputDeviceId InputDeviceId, FPlatformUserId NewUserPlatformId,
+	FPlatformUserId OldUserPlatformId)
+{
+	Super::HandleInputDevicePairingChange(InputDeviceId, NewUserPlatformId, OldUserPlatformId);
 }
 
 void UITT_GameInstance::OnStartGameInstance(UGameInstance* GameInstance)
@@ -163,7 +214,7 @@ void UITT_GameInstance::Finish_World()
 	}
 }
 
-void UITT_GameInstance::SplitScreen(int32 InputDeviceId)
+void UITT_GameInstance::SplitScreen(int32 InputDeviceId) const
 {
 	if(InputDeviceId == 1)
 	{
@@ -172,14 +223,21 @@ void UITT_GameInstance::SplitScreen(int32 InputDeviceId)
 		{
 			return;
 		}
+		GameViewportClient->UpdateActiveSplitscreenType();
 	
-		//GameViewportClient->SetForceDisableSplitscreen(false);
-		////GameViewportClient->UpdateActiveSplitscreenType();
-		FString OutError;
-		ULocalPlayer* NewLocalPlayer = CreateLocalPlayer(InputDeviceId, OutError, true);
-		
-		const TArray<ULocalPlayer*> LPS = GetLocalPlayers();
-
-		//GameViewportClient->UpdateType(ESplitScreenType::Type::TwoPlayer_Vertical);
+		// FString OutError;
+		// ULocalPlayer* NewLocalPlayer = CreateLocalPlayer(InputDeviceId, OutError, true);
+		//
+		// const TArray<ULocalPlayer*> LPS = GetLocalPlayers();
 	}
+}
+
+void UITT_GameInstance::SplitScreen(ESplitScreenType::Type ScreenType) const
+{
+	UITT_GameViewportClient* GameViewportClient = Cast<UITT_GameViewportClient>(GetGameViewportClient());
+	if(!GameViewportClient)
+	{
+		return;
+	}
+	GameViewportClient->UpdateActiveSplitScreenType(ScreenType);
 }

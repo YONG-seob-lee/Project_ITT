@@ -112,6 +112,19 @@ TObjectPtr<UITT_UnitBase> UITT_UnitManager::GetUnit(ITT_Handle UnitHandle)
 	return pUnit ? *pUnit : nullptr;
 }
 
+TObjectPtr<UITT_UnitBase> UITT_UnitManager::GetUnitTableId(ITT_Character TableId)
+{
+	for(const auto& Unit : Units)
+	{
+		if(Unit.Value->GetUnitTableId() == TableId)
+		{
+			return Unit.Value;
+		}
+	}
+
+	return nullptr;
+}
+
 ITT_Handle UITT_UnitManager::GetUnitHandle(TObjectPtr<UITT_UnitBase> UnitBase) const
 {
 	const ITT_Handle* UnitHandle = Units.FindKey(UnitBase);

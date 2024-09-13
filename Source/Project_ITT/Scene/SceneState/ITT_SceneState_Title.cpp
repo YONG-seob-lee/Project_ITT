@@ -120,7 +120,7 @@ void UITT_SceneState_Title::ResetPlayer()
 
 void UITT_SceneState_Title::ChangeCamera() const
 {
-	gCameraMng.ChangeCamera(static_cast<uint8>(EITT_GameCameraType::Title));
+	gCameraMng.ChangeCameraState(static_cast<uint8>(EITT_GameCameraType::Title));
 }
 
 void UITT_SceneState_Title::CreateDoll() const

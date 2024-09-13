@@ -82,7 +82,7 @@ void UITT_SceneState_Practice::CreatePlayer(const TWeakObjectPtr<AITT_PlayerSpaw
 		CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
 
 		UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(Cody));
-		UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase));
+		UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase), 0);
 	}
 	else if(_PlayerSpawnPoint->GetSpawnName() == TEXT("May"))
 	{
@@ -96,12 +96,15 @@ void UITT_SceneState_Practice::CreatePlayer(const TWeakObjectPtr<AITT_PlayerSpaw
 		May->SetSelfPlayer(true);
 		May->ChangePlayerState(EITT_UnitState::Practice);
 
-		if(const TObjectPtr<AITT_CharacterBase> CharacterBase = May->GetCharacterBase())
+		const TObjectPtr<AITT_CharacterBase> CharacterBase = May->GetCharacterBase();
+		if(!CharacterBase)
 		{
-			CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+			return;
 		}
 
+		CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
 		UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(May));
+		UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase), 1);
 	}
 
 	ChangeCamera();
@@ -113,7 +116,7 @@ void UITT_SceneState_Practice::ResetPlayer()
 
 void UITT_SceneState_Practice::ChangeCamera()
 {
-	gCameraMng.ChangeCamera(static_cast<uint8>(EITT_GameCameraType::Practice));
+	gCameraMng.ChangeCameraState(static_cast<uint8>(EITT_GameCameraType::Practice));
 }
 
 void UITT_SceneState_Practice::ThrowNail()

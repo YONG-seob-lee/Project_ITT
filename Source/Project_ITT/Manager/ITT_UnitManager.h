@@ -29,6 +29,7 @@ public:
 	TObjectPtr<class AITT_CharacterBase> CreateCharacter(const FString& BlueprintPath, const FVector& Pos, const FRotator& Rot);
 
 	TObjectPtr<UITT_UnitBase> GetUnit(ITT_Handle UnitHandle);
+	TObjectPtr<UITT_UnitBase> GetUnitTableId(ITT_Character TableId);
 	ITT_Handle GetUnitHandle(TObjectPtr<UITT_UnitBase> UnitBase) const;
 	
 	TObjectPtr<AITT_CharacterBase> GetCharacterBase(ITT_Handle UnitHandle);

@@ -185,6 +185,13 @@ void AITT_Actor_Camera::Active(float BlendTime)
 	{
 		BlendTime > 0.f ? PlayerController->SetViewTargetWithBlend(this, BlendTime) : PlayerController->SetViewTarget(this);
 	}
+
+	bActivate = true;
+}
+
+void AITT_Actor_Camera::Deactive()
+{
+	bActivate = false;
 }
 
 // Called every frame

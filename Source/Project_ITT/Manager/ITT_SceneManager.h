@@ -29,6 +29,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	TObjectPtr<class UITT_SceneBase> GetCurrentScene() const;
+	FORCEINLINE EITT_GameSceneType GetCurrentSceneType() { return CurrentSceneType; }
 	
 	FORCEINLINE bool IsCompleteChangeScene() const { return ChangeSceneData.Step == EITT_ChangeSceneStep::Complete; }
 	
@@ -73,6 +74,7 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<class UITT_FadeTool> FadeTool = nullptr;
-	
+
+	EITT_GameSceneType CurrentSceneType;
 #define	gSceneMng (*UITT_SceneManager::GetInstance())
 };

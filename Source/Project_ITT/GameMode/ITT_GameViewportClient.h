@@ -17,6 +17,7 @@ public:
 	virtual void Init(FWorldContext& WorldContext, UGameInstance* OwningGameInstance, bool bCreateNewAudioDevice) override;
 	
 	virtual void UpdateActiveSplitscreenType() override;
+	void UpdateActiveSplitScreenType(ESplitScreenType::Type _ScreenType);
 	virtual void LayoutPlayers() override;
 
 	void SetSplitScreenInfo(FVector2D MoveVector);

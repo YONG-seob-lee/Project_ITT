@@ -163,6 +163,7 @@ void UITT_SceneManager::RegisterSceneStates()
 
 void UITT_SceneManager::ChangeScene(EITT_GameSceneType SceneType, TObjectPtr<UITT_FadeCommand> Command /* = nullptr */)
 {
+	CurrentSceneType = SceneType;
 	if(OnChangeScene.IsBound())
 	{
 		OnChangeScene.Broadcast(SceneType);

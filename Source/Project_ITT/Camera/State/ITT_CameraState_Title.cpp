@@ -35,9 +35,10 @@ void UITT_CameraState_Title::Begin()
 	
 	InitCamera();
 
-	gCameraMng.ActiveCamera(EITT_GameCameraType::Title);
-
-	BeginCameraIdle();
+	if(gCameraMng.ActiveCamera(CharacterSelectCamera))
+	{
+		BeginCameraIdle();
+	}
 }
 
 void UITT_CameraState_Title::Tick(float DeltaTime)
@@ -68,11 +69,6 @@ void UITT_CameraState_Title::Exit()
 
 void UITT_CameraState_Title::InitCamera()
 {
-	if(gCameraMng.HasCamera(EITT_GameCameraType::Title))
-	{
-		return;
-	}
-
 	CharacterSelectCamera = gCameraMng.CreateCameraActor(AITT_Actor_Camera::StaticClass(), EITT_GameCameraType::Title);
 	CharacterSelectCamera->InitialInput(TEXT("CharacterSelectCamera"));
 

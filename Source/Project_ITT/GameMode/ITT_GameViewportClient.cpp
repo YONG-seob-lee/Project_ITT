@@ -25,6 +25,12 @@ void UITT_GameViewportClient::UpdateActiveSplitscreenType()
 	RefreshRatio();
 }
 
+void UITT_GameViewportClient::UpdateActiveSplitScreenType(ESplitScreenType::Type _ScreenType)
+{
+	ActiveSplitscreenType = _ScreenType;
+	RefreshRatio();
+}
+
 void UITT_GameViewportClient::LayoutPlayers()
 {
 	const ESplitScreenType::Type SplitType = GetCurrentSplitscreenConfiguration();

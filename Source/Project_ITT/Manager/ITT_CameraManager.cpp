@@ -62,19 +62,14 @@ void UITT_CameraManager::RegisterCameras()
 	RegistCameraState(static_cast<uint8>(EITT_GameCameraType::Practice), TEXT("Practice"), UITT_CameraState_Practice::StaticClass());
 }
 
-void UITT_CameraManager::ChangeCamera(uint8 Index, bool bInstant) const
+void UITT_CameraManager::ChangeCameraState(uint8 Index, bool bInstant)
 {
+	CameraActors.Empty();
+	
 	if(CameraStateMachine)
 	{
 		CameraStateMachine->SetState(Index, bInstant);
 	}
-}
-
-bool UITT_CameraManager::HasCamera(EITT_GameCameraType CameraType) const
-{
-	const FString CameraKeyName = UITT_InstUtil::ConvertEnumToString<EITT_GameCameraType>("EITT_GameCameraType", CameraType);
-	
-	return CameraActors.Contains(CameraKeyName);
 }
 
 TObjectPtr<AITT_Actor_Camera> UITT_CameraManager::CreateCameraActor(const TSubclassOf<AITT_Actor_Camera>& CameraActorType, EITT_GameCameraType _CameraType)
@@ -89,36 +84,41 @@ TObjectPtr<AITT_Actor_Camera> UITT_CameraManager::CreateCameraActor(const TSubcl
 #if WITH_EDITOR
 	CameraActor->SetActorLabel(CameraActor->GetName());
 #endif
-
-	AddCameraActor(CameraType, CameraActor);
+	CameraActor->SetCameraType(_CameraType);
+	
+	AddCameraActor(CameraActor);
 	
 	return CameraActor;
 }
 
-TObjectPtr<AITT_Actor_Camera> UITT_CameraManager::ActiveCamera(EITT_GameCameraType _CameraType, float BlendTime)
+bool UITT_CameraManager::ActiveCamera(const TObjectPtr<AITT_Actor_Camera>& _ActiveCamera, float BlendTime) const
 {
-	const FString CameraType = UITT_InstUtil::ConvertEnumToString<EITT_GameCameraType>("EITT_GameCameraType", _CameraType);
-	
-	const TObjectPtr<AITT_Actor_Camera>* pCameraActor = CameraActors.Find(CameraType);
-	if(pCameraActor == nullptr)
+	if(!CameraActors.Contains(_ActiveCamera))
 	{
-		return nullptr;
+		return false; 
 	}
+	
+	for(const auto& Camera : CameraActors)
+	{
+		if(Camera.Get()->IsActivate() == false)
+		{
+			Camera.Get()->Deactive();
+		}
+	}
+	
+	_ActiveCamera->Active(BlendTime);
 
-	const TObjectPtr<AITT_Actor_Camera> TargetCameraActor = *pCameraActor;
-
-	TargetCameraActor->Active(BlendTime);
-
-	CurrentActiveType = CameraType;
-
-	return TargetCameraActor;
+	return true;
 }
 
 TObjectPtr<AITT_Actor_Camera> UITT_CameraManager::GetActiveCamera()
 {
-	if(const TObjectPtr<AITT_Actor_Camera>* CameraActor = CameraActors.Find(CurrentActiveType))
+	for(const auto& Camera : CameraActors)
 	{
-		return *CameraActor;
+		if(Camera.Get()->IsActivate())
+		{
+			return Camera;
+		}
 	}
 	
 	return nullptr;
@@ -132,7 +132,7 @@ void UITT_CameraManager::RegistCameraState(uint8 Index, const FName& Name, const
 	}
 }
 
-void UITT_CameraManager::AddCameraActor(const FString& CameraType, TObjectPtr<AITT_Actor_Camera> CameraActor)
+void UITT_CameraManager::AddCameraActor(TObjectPtr<AITT_Actor_Camera> CameraActor)
 {
-	CameraActors.Emplace(CameraType, CameraActor);
+	CameraActors.Emplace(CameraActor);
 }

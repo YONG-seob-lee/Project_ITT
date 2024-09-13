@@ -32,11 +32,13 @@ public:
 	FORCEINLINE FStreamableManager& GetAssetLoader() { return AssetLoader; }
 	static float GetAspectRatio();
 
+	static EITT_GameSceneType GetCurrentSceneType();
+
 	static void ShowMessageOnScreen(const FString& Message, bool bNewerOnTop = true, float ElapsedTime = 3.f, FColor DisplayColor = FColor::Green);
 
 	static TObjectPtr<UWorld> GetGameWorld();
 	static TObjectPtr<UITT_GameInstance> GetGameInstance();
-	static TObjectPtr<APlayerController> GetPlayerController();
+	static TObjectPtr<APlayerController> GetPlayerController(int32 PlayerIndex = 0);
 	static FSceneViewport* GetGameViewport();
 	static bool HasGameInstance();
 
@@ -50,7 +52,7 @@ public:
 													  ESpawnActorCollisionHandlingMethod Method = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn);
 	
 	static void AssignUnitHandle(ITT_Handle _UnitHandle);
-	static void OnPossessUnit(const TObjectPtr<class AITT_CharacterBase>& CharacterBase);
+	static void OnPossessUnit(const TObjectPtr<class AITT_CharacterBase>& CharacterBase, int32 PlayerIndex = 0);
 
 	static void FlushPressedKeys();
 	
