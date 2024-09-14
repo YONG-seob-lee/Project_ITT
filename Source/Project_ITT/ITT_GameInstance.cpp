@@ -78,22 +78,23 @@ void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnection
 		if(NewConnectionState == EInputDeviceConnectionState::Connected)
 		{
 			const TArray<ULocalPlayer*> Players = GetLocalPlayers();
-			if(Players.Num() == 2)
+			if(Players.Num() == 1)
 			{
-				// if(Players.IsValidIndex(0))
-				// {
-				// 	if(const TObjectPtr<UITT_UnitBase> CodyUnit = gUnitMng.GetUnitTableId(ITT_Character::Cody))
-				// 	{
-				// 		Players[0]->PlayerController->Possess(CodyUnit->GetCharacterBase());
-				//
-				// 	}
-				// }
-
+				FString ErrLog;
+				ULocalPlayer* NewLocalPlayer = CreateLocalPlayer(InputDeviceId.GetId(), ErrLog, true);
+				if(const TObjectPtr<UITT_UnitBase> MayUnit = gUnitMng.GetUnitTableId(ITT_Character::May))
+				{
+					UITT_InstUtil::OnPossessUnit(MayUnit->GetCharacterBase(), 1);
+				}
+			}
+			else if(Players.Num() == 2)
+			{
 				if(Players.IsValidIndex(1))
 				{
 					if(const TObjectPtr<UITT_UnitBase> MayUnit = gUnitMng.GetUnitTableId(ITT_Character::May))
 					{
-						Players[1]->PlayerController->Possess(MayUnit->GetCharacterBase());
+						UITT_InstUtil::OnPossessUnit(MayUnit->GetCharacterBase(), 1);
+						//Players[1]->PlayerController->Possess(MayUnit->GetCharacterBase());
 						ITT_LOG(TEXT("asdf"));
 					}
 				}
