@@ -16,6 +16,7 @@
 #include "PROJECT_ITT/Unit/ITT_BasePlayer_Rose.h"
 #include "PROJECT_ITT/Widget/Select/ITT_Widget_Select.h"
 #include "Unit/ITT_BasePlayer_Doll.h"
+#include "Unit/ITT_BasePlayer_Dummy.h"
 #include "Widget/Title/ITT_Widget_Title.h"
 
 void UITT_SceneState_Title::Begin()
@@ -61,7 +62,9 @@ bool UITT_SceneState_Title::LoadingPostProcess(float DeltaTime)
 	}
 	
 	PlayerSpawnPoint = UITT_InstUtil::GetSpawnPoint(CharacterName::Rose);
+	DummySpawnPoint = UITT_InstUtil::GetSpawnPoint(CharacterName::Dummy);
 	CreatePlayer();
+	CreateDummyPlayer();
 	ChangeCamera();
 	CreateDoll();
 	
@@ -90,8 +93,7 @@ void UITT_SceneState_Title::CreatePlayer()
 	Player = Rose;
 	Player->SetSelfPlayer(true);
 	Player->ChangePlayerState(EITT_UnitState::Title);
-	TObjectPtr<AITT_CharacterBase> CharacterBase = nullptr;
-	CharacterBase = Player->GetCharacterBase();
+	const TObjectPtr<AITT_CharacterBase> CharacterBase = Player->GetCharacterBase();
 	if(!CharacterBase)
 	{
 		return;
@@ -100,6 +102,31 @@ void UITT_SceneState_Title::CreatePlayer()
 	RoseAnimInst = Cast<UITT_AnimInstance_Rose>(CharacterBase->GetAnimInstance());
 	UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(Rose));
 	UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase));
+}
+
+void UITT_SceneState_Title::CreateDummyPlayer()
+{
+	if(DummySpawnPoint.IsValid() == false)
+	{
+		return;
+	}
+
+	const TObjectPtr<UITT_BasePlayer_Dummy> NewDummy = Cast<UITT_BasePlayer_Dummy>(gUnitMng.CreateUnit(static_cast<int32>(ITT_Character::Dummy), UITT_BasePlayer_Dummy::StaticClass(), DummySpawnPoint->GetActorLocation(), DummySpawnPoint->GetActorRotation()));
+	if(NewDummy == nullptr)
+	{
+		return;
+	}
+
+	Dummy = NewDummy;
+	Dummy->SetSelfPlayer(true);
+	Dummy->ChangePlayerState(EITT_UnitState::Title);
+	const TObjectPtr<AITT_CharacterBase> CharacterBase = Dummy->GetCharacterBase();
+	if(!CharacterBase)
+	{
+		return;
+	}
+	CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+	
 }
 
 void UITT_SceneState_Title::ResetPlayer()
@@ -150,7 +177,7 @@ void UITT_SceneState_Title::CreateDoll() const
 	Player->SetDollAnimInst(Cast<UITT_AnimInstance_Doll>(MayDoll->GetAnimInstance()), Cast<UITT_AnimInstance_Doll>(CodyDoll->GetAnimInstance()));
 }
 
-void UITT_SceneState_Title::OnAxisSelect(float AxisValue)
+void UITT_SceneState_Title::OnAxisSelect(ITT_Player PlayerIndex, float AxisValue)
 {
 	if(FMath::IsNearlyEqual(AxisValue, 0.f))
 	{
@@ -158,11 +185,29 @@ void UITT_SceneState_Title::OnAxisSelect(float AxisValue)
 	}
 	
 	const bool bMoveRight = AxisValue > 0;
-	const FITT_ResultSelectData ResultData = SelectData.SetPlayerData(ITT_Player::First, bMoveRight);
+	const FITT_ResultSelectData ResultData = SelectData.SetPlayerData(PlayerIndex, bMoveRight);
 	if(ResultData.bChanged)
 	{
 		TitleWidget->RefreshCharacterState(ResultData.Player, ResultData.NextPosition);
-		RoseAnimInst.Get()->Select(ResultData.NextPosition);
+		if(SelectData.IsAllExist())
+		{
+			RoseAnimInst.Get()->Select(EITT_SelectCharacter::Both);
+		}
+		else
+		{
+			if(SelectData.IsExistCody())
+			{
+				RoseAnimInst.Get()->Select(EITT_SelectCharacter::Cody);
+			}
+			else if(SelectData.IsExistMay())
+			{
+				RoseAnimInst.Get()->Select(EITT_SelectCharacter::May);
+			}
+			else
+			{
+				RoseAnimInst.Get()->Select(EITT_SelectCharacter::None);
+			}
+		}
 	}
 }
 

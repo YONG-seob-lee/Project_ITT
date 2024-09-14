@@ -89,7 +89,7 @@ void UITT_Widget_Choose_Character::RefreshCharacterState(ITT_Player Player, EITT
 		if(SecondPlayerCurrentPos == EITT_SelectCharacter::May && NextPosition == EITT_SelectCharacter::None)
 		{
 			PlayAnimationByName(ChooseAnimation::S_Player_UnSelect_May);
-			FirstPlayerCurrentPos = EITT_SelectCharacter::None;
+			SecondPlayerCurrentPos = EITT_SelectCharacter::None;
 			return;
 		}
 		
@@ -98,12 +98,12 @@ void UITT_Widget_Choose_Character::RefreshCharacterState(ITT_Player Player, EITT
 			if(NextPosition == EITT_SelectCharacter::May)
 			{
 				PlayAnimationByName(ChooseAnimation::S_Player_Select_May);
-				FirstPlayerCurrentPos = EITT_SelectCharacter::May;
+				SecondPlayerCurrentPos = EITT_SelectCharacter::May;
 			}
 			else if(NextPosition == EITT_SelectCharacter::Cody)
 			{
 				PlayAnimationByName(ChooseAnimation::S_Player_Select_Cody);
-				FirstPlayerCurrentPos = EITT_SelectCharacter::Cody;
+				SecondPlayerCurrentPos = EITT_SelectCharacter::Cody;
 			}
 			return;
 		}
@@ -111,7 +111,7 @@ void UITT_Widget_Choose_Character::RefreshCharacterState(ITT_Player Player, EITT
 		if(SecondPlayerCurrentPos == EITT_SelectCharacter::Cody && NextPosition == EITT_SelectCharacter::None)
 		{
 			PlayAnimationByName(ChooseAnimation::S_Player_UnSelect_Cody);
-			FirstPlayerCurrentPos = EITT_SelectCharacter::None;
+			SecondPlayerCurrentPos = EITT_SelectCharacter::None;
 		}
 	}
 }

@@ -13,6 +13,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Animation/AnimData/ITT_DataAsset_Roll.h"
+#include "Data/ITT_TitleDefine.h"
 #include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
 
@@ -218,8 +219,8 @@ void UITT_InputHelper::InputSelectDoll(const FInputActionValue& Value)
 
 	ITT_LOG(TEXT("%f"), MovementSize);
 	CharacterBase->SetCharacterState(EITT_CharacterState::Select);
-
-	gInputMng.GetBindSelectDelegate().Broadcast(MovementSize);
+	const ITT_Player PlayerIndex = CharacterBase->GetCharacterName() == TEXT("BP_Dummy") ? ITT_Player::Second : ITT_Player::First;
+	gInputMng.GetBindSelectDelegate().Broadcast(PlayerIndex, MovementSize);
 }
 
 void UITT_InputHelper::InputAbility1_Fire(const FInputActionValue& Value)

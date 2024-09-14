@@ -8,6 +8,7 @@
 #include "Actor/SpawnPoint/ITT_PlayerSpawnPoint_Cody.h"
 #include "Actor/SpawnPoint/ITT_PlayerSpawnPoint_May.h"
 #include "Actor/SpawnPoint/ITT_PlayerSpawnPoint_Rose.h"
+#include "Actor/SpawnPoint/ITT_PlayerSpawnPoint_SelectDummy.h"
 #include "Character/ITT_CharacterBase.h"
 #include "CommonInputSubsystem.h"
 #include "Kismet/GameplayStatics.h"
@@ -166,6 +167,13 @@ TObjectPtr<AITT_PlayerSpawnPoint> UITT_InstUtil::GetSpawnPoint(FName CharacterNa
 			{
 				return RoseSpawnPoint;
 			}	
+		}
+		else if(CharacterName == CharacterName::Dummy)
+		{
+			if(const TObjectPtr<AITT_PlayerSpawnPoint_SelectDummy> DummySpawnPoint = Cast<AITT_PlayerSpawnPoint_SelectDummy>(*Iter))
+			{
+				return DummySpawnPoint;
+			}
 		}
 	}
 

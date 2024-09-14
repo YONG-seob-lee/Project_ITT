@@ -17,6 +17,7 @@ enum class EITT_SelectCharacter : uint8
 	None = 0,
 	Cody = 1,
 	May = 2,
+	Both = 3,
 };
 
 enum class EITT_JoyStick : uint32
@@ -59,6 +60,10 @@ struct FITT_SelectData
 	FITT_SelectData() {}
 	
 	FITT_ResultSelectData SetPlayerData(ITT_Player _Player, bool bMoveRight);
+
+	bool IsAllExist() const;
+	FORCEINLINE bool IsExistCody() const { return bExistCody; }
+	FORCEINLINE bool IsExistMay() const { return bExistMay; }
 private:
 	bool bExistMay = false;
 	bool bExistCody = false;

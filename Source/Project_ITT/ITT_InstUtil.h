@@ -15,6 +15,7 @@ namespace CharacterName
 	const FName Cody = TEXT("Cody");
 	const FName May = TEXT("May");
 	const FName Rose = TEXT("Rose");
+	const FName Dummy = TEXT("Dummy");
 }
 
 /**

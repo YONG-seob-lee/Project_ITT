@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Data/ITT_TitleDefine.h"
 #include "ITT_Define.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(My_Log, Log, All);
@@ -262,7 +263,7 @@ enum class EITT_AndroidButton_Type : uint8
 };
 
 DECLARE_DELEGATE_TwoParams(FBindAllKeysDelegate, const FKey&, bool);
-DECLARE_MULTICAST_DELEGATE_OneParam(FBindSelectDelegate, float);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FBindSelectDelegate, ITT_Player, float);
 DECLARE_MULTICAST_DELEGATE(FBindPickDelegate);
 DECLARE_MULTICAST_DELEGATE(FBindAimedDelegate);
 DECLARE_MULTICAST_DELEGATE(FBindFireDelegate);
@@ -286,6 +287,7 @@ enum class ITT_Character : int32
 	Rose = 3			UMETA(DisplayName = "Rose"),
 	CodyDoll = 4		UMETA(DisplayName = "CodyDoll"),
 	MayDoll = 5			UMETA(DisplayName = "MayDoll"),
+	Dummy = 6			UMETA(DisplayName = "Dummy"),
 	
 };
 

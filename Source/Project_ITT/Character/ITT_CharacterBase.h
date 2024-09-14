@@ -27,6 +27,7 @@ public:
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	FORCEINLINE FString GetCharacterName() { return CharacterName; }
 	
 	void SetLodScaleValues(float CullDistanceScale, float OutLineCullDistanceScale, bool bVisibleOutLine);
 	void SetPositionAndRotator(const FVector& Position, const FRotator& Rotator) const;

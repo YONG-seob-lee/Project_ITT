@@ -28,16 +28,21 @@ protected:
 
 private:
 	void CreatePlayer();
+	void CreateDummyPlayer();
 	void ResetPlayer();
 	void ChangeCamera() const;
 	void CreateDoll() const;
 
-	void OnAxisSelect(float AxisValue);
+	void OnAxisSelect(ITT_Player PlayerIndex, float AxisValue);
 	void OnPickDoll();
 	
-	TWeakObjectPtr<class UITT_BasePlayer_Rose> Player;
-	TArray<TWeakObjectPtr<class UITT_BasePlayer>> Dolls;
 	TWeakObjectPtr<class AITT_PlayerSpawnPoint> PlayerSpawnPoint = nullptr;
+	TWeakObjectPtr<class AITT_PlayerSpawnPoint> DummySpawnPoint = nullptr;
+	
+	TWeakObjectPtr<class UITT_BasePlayer_Rose> Player;
+	TWeakObjectPtr<class UITT_BasePlayer_Dummy> Dummy;
+	
+	TArray<TWeakObjectPtr<class UITT_BasePlayer>> Dolls;
 	TWeakObjectPtr<class UITT_AnimInstance_Rose> RoseAnimInst = nullptr;
 	
 	// 플레이어들의 상황을 저장하는 데이터

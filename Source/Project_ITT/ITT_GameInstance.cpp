@@ -3,6 +3,7 @@
 
 #include "ITT_GameInstance.h"
 #include "ITT_InstUtil.h"
+#include "Camera/ITT_Actor_Camera.h"
 #include "GameMode/ITT_GameViewportClient.h"
 #include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
@@ -71,7 +72,7 @@ void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnection
 {
 	Super::HandleInputDeviceConnectionChange(NewConnectionState, PlatformUserId, InputDeviceId);
 
-	SplitScreen(InputDeviceId.GetId());
+	//SplitScreen(InputDeviceId.GetId());
 
 	if(InputDeviceId.GetId() == 1)
 	{
@@ -81,10 +82,31 @@ void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnection
 			if(Players.Num() == 1)
 			{
 				FString ErrLog;
-				ULocalPlayer* NewLocalPlayer = CreateLocalPlayer(InputDeviceId.GetId(), ErrLog, true);
-				if(const TObjectPtr<UITT_UnitBase> MayUnit = gUnitMng.GetUnitTableId(ITT_Character::May))
+				ULocalPlayer* NewLocalPlayer = CreateLocalPlayer(PlatformUserId, ErrLog, true);
+				if(UITT_InstUtil::GetCurrentSceneType() <= EITT_GameSceneType::Title)
 				{
-					UITT_InstUtil::OnPossessUnit(MayUnit->GetCharacterBase(), 1);
+					if(const TObjectPtr<UITT_UnitBase> Rose = gUnitMng.GetUnitTableId(ITT_Character::Rose))
+					{
+						UITT_InstUtil::OnPossessUnit(Rose->GetCharacterBase(), 0);
+					}
+					if(const TObjectPtr<UITT_UnitBase> Dummy = gUnitMng.GetUnitTableId(ITT_Character::Dummy))
+					{
+						UITT_InstUtil::OnPossessUnit(Dummy->GetCharacterBase(), 1);
+					}
+					if(Players.IsValidIndex(0))
+					{
+						if(AITT_Actor_Camera* CurrentActiveCamera = gCameraMng.GetActiveCamera())
+						{
+							Players[0]->PlayerController->SetViewTarget(CurrentActiveCamera);
+						}	
+					}
+				}
+				else
+				{
+					if(const TObjectPtr<UITT_UnitBase> MayUnit = gUnitMng.GetUnitTableId(ITT_Character::May))
+					{
+						UITT_InstUtil::OnPossessUnit(MayUnit->GetCharacterBase(), 1);
+					}	
 				}
 			}
 			else if(Players.Num() == 2)
@@ -94,7 +116,6 @@ void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnection
 					if(const TObjectPtr<UITT_UnitBase> MayUnit = gUnitMng.GetUnitTableId(ITT_Character::May))
 					{
 						UITT_InstUtil::OnPossessUnit(MayUnit->GetCharacterBase(), 1);
-						//Players[1]->PlayerController->Possess(MayUnit->GetCharacterBase());
 						ITT_LOG(TEXT("asdf"));
 					}
 				}
@@ -114,8 +135,10 @@ void UITT_GameInstance::HandleInputDeviceConnectionChange(EInputDeviceConnection
 			//Pause
 			SplitScreen(ESplitScreenType::None);
 		}
-		EITT_GameSceneType CurrentSceneType =UITT_InstUtil::GetCurrentSceneType();
 	}
+
+	const TArray<ULocalPlayer*> asdf = GetLocalPlayers();
+	ITT_LOG(TEXT("asdf"));
 }
 
 void UITT_GameInstance::HandleInputDevicePairingChange(FInputDeviceId InputDeviceId, FPlatformUserId NewUserPlatformId,
