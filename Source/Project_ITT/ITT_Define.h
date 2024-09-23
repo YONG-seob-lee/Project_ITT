@@ -271,6 +271,8 @@ DECLARE_MULTICAST_DELEGATE(FBindFireDelegate);
 DECLARE_MULTICAST_DELEGATE_OneParam(FBindScreenMoveDelegate, FVector2D);
 DECLARE_MULTICAST_DELEGATE(FBindScreenSplitTypeDelegate);
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FBindMoveButtonDelegate, bool);
+DECLARE_MULTICAST_DELEGATE(FBindSelectButtonDelegate);
 /////////////////////////
 ///
 ///			Unit Part

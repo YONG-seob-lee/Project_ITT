@@ -17,8 +17,13 @@ public:
 	static FName GetWidgetName() { return TEXT("Select"); }
 
 	virtual void InitWidget(const FName& TypeName, bool _bManaged, bool bActivate) override;
+	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
 
 	FORCEINLINE void BindChangeStorySceneFunc(const TFunction<void()>& _Func) { OnChangeStoryCallback = _Func; }
+
+protected:
+	virtual void OnMoveButtonEvent(bool bMoveUp) override;
 	
 private:
 	void InitScrollBox(TMap<int32, struct FSelectButton*>* ButtonDatas) const;

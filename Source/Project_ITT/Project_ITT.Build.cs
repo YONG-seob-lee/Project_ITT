@@ -8,10 +8,10 @@ public class Project_ITT : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		
-		PrivateIncludePaths.Add("Project_ITT");
+		PrivateIncludePaths.AddRange(new string[] {"Project_ITT"});
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "ApplicationCore", "Engine", "InputCore", "EnhancedInput", "UMG" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "Slate", "SlateCore", "NiagaraUIRenderer", "CommonInput"  });
+		PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "Slate", "SlateCore", "NiagaraUIRenderer", "CommonInput", "UINavigation" });
 	}
 }

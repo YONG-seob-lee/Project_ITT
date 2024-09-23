@@ -51,10 +51,15 @@ public:
 	bool IsExistAnim(FName AnimName) const;
 
 	void FillDefaultAnimations();
+
+	void MakeButtonPool();
+	void GetButtons(TArray<TObjectPtr<class UITT_Button>>& _Buttons) const;
 protected:
 	void InitResourceWidgetInfo();
 	
 	virtual void OnAnimFinished(const FName& AnimName);
+	
+	virtual void OnMoveButtonEvent(bool bMoveDown) { }
 	
 	bool bManaged = false;
 	bool bActive = false;
@@ -68,6 +73,8 @@ protected:
 	
 	FITT_ResourceWidgetInfo ResourceWidgetInfo;
 
-private:
+	UPROPERTY()
+	TArray<TObjectPtr<class UITT_Button>> Buttons;
 	
+	int32 SelectButtonIndex = 0;
 };

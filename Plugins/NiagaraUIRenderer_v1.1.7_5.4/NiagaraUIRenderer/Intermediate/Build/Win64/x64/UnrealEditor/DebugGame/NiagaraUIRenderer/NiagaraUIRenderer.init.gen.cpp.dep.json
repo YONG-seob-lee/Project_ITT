@@ -3,7 +3,7 @@
     "Data": {
         "Source": "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\intermediate\\build\\win64\\unrealeditor\\inc\\niagarauirenderer\\uht\\niagarauirenderer.init.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "d:\\unrealengine-release\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.project.nonoptimized.valapi.cpp20.h.pch",
+        "PCH": "c:\\users\\lee\\documents\\unreal projects\\project_itt\\intermediate\\build\\win64\\x64\\project_itteditor\\debuggame\\unrealed\\sharedpch.unrealed.project.nonoptimized.valapi.cpp20.h.pch",
         "Includes": [
             "c:\\users\\lee\\documents\\unreal projects\\project_itt\\plugins\\niagarauirenderer_v1.1.7_5.4\\niagarauirenderer\\intermediate\\build\\win64\\x64\\unrealeditor\\debuggame\\niagarauirenderer\\definitions.niagarauirenderer.h"
         ],

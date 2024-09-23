@@ -4,6 +4,8 @@
 #include "ITT_Widget_Select.h"
 
 #include "Components/ScrollBox.h"
+#include "Framework/Application/NavigationConfig.h"
+#include "Manager/ITT_InputManager.h"
 #include "PROJECT_ITT/Manager/ITT_SceneManager.h"
 #include "PROJECT_ITT/Manager/ITT_TableManager.h"
 #include "PROJECT_ITT/Manager/ITT_WidgetManager.h"
@@ -23,6 +25,40 @@ void UITT_Widget_Select::InitWidget(const FName& TypeName, bool _bManaged, bool 
 	}
 	
 	InitScrollBox(ButtonDatas);
+}
+
+void UITT_Widget_Select::NativeConstruct()
+{
+	Super::NativeConstruct();
+	gInputMng.GetMoveButtonDelegate().AddUObject(this, &UITT_Widget_Select::OnMoveButtonEvent);
+	
+	TMap<FKey, EUINavigation>& KeyEventRules = FSlateApplication::Get().GetNavigationConfig()->KeyEventRules;
+	KeyEventRules.Emplace(EKeys::F, EUINavigation::Up);
+	KeyEventRules.Emplace(EKeys::V, EUINavigation::Down);
+	
+	CPP_SelectScrollBox->SetNavigationRuleBase(EUINavigation::Up, EUINavigationRule::Wrap);
+	CPP_SelectScrollBox->SetNavigationRuleBase(EUINavigation::Down, EUINavigationRule::Wrap);
+	
+
+	for(const auto& Button : CPP_SelectScrollBox->GetAllChildren())
+	{
+		TArray<TObjectPtr<UITT_Button>> InButtons;
+		if(TObjectPtr<UITT_Widget> ButtonWidget = Cast<UITT_Widget>(Button))
+		{
+			ButtonWidget->GetButtons(InButtons);
+		}
+
+		for(const auto& InButton :InButtons)
+		{
+			Buttons.Emplace(InButton);
+		}
+	}
+}
+
+void UITT_Widget_Select::NativeDestruct()
+{
+	gInputMng.GetMoveButtonDelegate().RemoveAll(this);
+	Super::NativeDestruct();
 }
 
 void UITT_Widget_Select::InitScrollBox(TMap<int32, FSelectButton*>* ButtonDatas) const
@@ -69,6 +105,41 @@ void UITT_Widget_Select::InitScrollBox(TMap<int32, FSelectButton*>* ButtonDatas)
 	}
 }
 
+void UITT_Widget_Select::OnMoveButtonEvent(bool bMoveUp)
+{
+	for(const auto& Button : Buttons)
+	{
+		if(Button.Get()->IsHovered())
+		{
+			SelectButtonIndex = Buttons.IndexOfByKey(Button.Get());
+		}
+	}
+
+	if(bMoveUp)
+	{
+		if(SelectButtonIndex > 0)
+		{
+			SelectButtonIndex -= 1;
+		}
+	}
+	else
+	{
+		SelectButtonIndex += 1;
+	}
+	
+	for(int32 i = 0 ; i < Buttons.Num() ; i++)
+	{
+		if(i == SelectButtonIndex)
+		{
+			Buttons[i].Get()->OnHoverJoyStick();	
+		}
+		else
+		{
+			Buttons[i].Get()->UnHoverJoyStick();	
+		}
+	}
+}
+
 void UITT_Widget_SelectButton::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -78,6 +149,8 @@ void UITT_Widget_SelectButton::NativeConstruct()
 	UCommonButtonBase::FCommonButtonEvent ButtonEvent;
 	ButtonEvent.AddUObject(this, &UITT_Widget_SelectButton::OnClickButton);
 	CPP_SelectButton->SetOnClickedDelegate(ButtonEvent);
+
+	MakeButtonPool();
 }
 
 void UITT_Widget_SelectButton::SetButtonData(const FString& ButtonName) const

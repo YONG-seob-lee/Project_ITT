@@ -44,7 +44,9 @@ class PROJECT_ITT_API UITT_Button : public UCommonButtonBase
 
 	FORCEINLINE void SetCustomVector(const FVector& Vector) { CustomVector = Vector;}
 	FORCEINLINE FVector GetCustomVector() const { return CustomVector; }
-	
+
+	void OnHoverJoyStick();
+	void UnHoverJoyStick();
 private:
 	void SetDelegates();
 	

@@ -5,6 +5,8 @@
 
 #include "MovieScene.h"
 #include "Animation/WidgetAnimation.h"
+#include "Blueprint/WidgetTree.h"
+#include "Button/ITT_Button.h"
 
 void UITT_Widget::NativeConstruct()
 {
@@ -167,4 +169,29 @@ void UITT_Widget::FillDefaultAnimations()
 		}
 		Property = Property->PropertyLinkNext;
 	}
+}
+
+void UITT_Widget::MakeButtonPool()
+{
+	if (const TObjectPtr<UWidgetTree> WidgetTreePtr = WidgetTree.Get())
+	{
+		WidgetTreePtr->ForEachWidget([&](UWidget* Widget)
+			{
+				check(Widget);
+
+				if (Widget->IsA(UITT_Button::StaticClass()))
+				{
+					if (const TObjectPtr<UITT_Button> Button = Cast<UITT_Button>(Widget))
+					{
+						Buttons.Emplace(Button);
+					}
+				}
+			});
+	}
+}
+
+void UITT_Widget::GetButtons(TArray<TObjectPtr<UITT_Button>>& _Buttons) const
+{
+	_Buttons.Empty();
+	_Buttons = Buttons;
 }

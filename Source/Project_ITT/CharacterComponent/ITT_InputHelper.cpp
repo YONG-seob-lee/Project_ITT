@@ -100,6 +100,8 @@ void UITT_InputHelper::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(ToggleSprintAction, ETriggerEvent::Completed, this, &UITT_InputHelper::InputStopToggleSprint);
 		
 		EnhancedInputComponent->BindAction(SelectAction, ETriggerEvent::Started, this, &UITT_InputHelper::InputSelectDoll);
+		EnhancedInputComponent->BindAction(ToggleButton, ETriggerEvent::Started, this, &UITT_InputHelper::InputButtonToggle);
+		
 		// Ability
 		EnhancedInputComponent->BindAction(Ability1_Fire_Action, ETriggerEvent::Started, this, &UITT_InputHelper::InputAbility1_Fire);
 
@@ -119,9 +121,9 @@ void UITT_InputHelper::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void UITT_InputHelper::InputMove(const FInputActionValue& Value)
 {
-	FVector2D MovementVector = Value.Get<FVector2D>();
-
-	if (APlayerController* PlayerController = Cast<APlayerController>(CharacterBase->GetController()))
+	const FVector2D MovementVector = Value.Get<FVector2D>();
+	
+	if (const APlayerController* PlayerController = Cast<APlayerController>(CharacterBase->GetController()))
 	{
 		if (PlayerController != nullptr)
 		{
@@ -216,11 +218,17 @@ void UITT_InputHelper::InputStopToggleSprint(const FInputActionValue& Value)
 void UITT_InputHelper::InputSelectDoll(const FInputActionValue& Value)
 {
 	const float MovementSize = Value.Get<float>();
-
+	
 	ITT_LOG(TEXT("%f"), MovementSize);
 	CharacterBase->SetCharacterState(EITT_CharacterState::Select);
 	const ITT_Player PlayerIndex = CharacterBase->GetCharacterName() == TEXT("BP_Dummy") ? ITT_Player::Second : ITT_Player::First;
 	gInputMng.GetBindSelectDelegate().Broadcast(PlayerIndex, MovementSize);
+}
+
+void UITT_InputHelper::InputButtonToggle(const FInputActionValue& Value)
+{
+	const bool bMoveUp = Value.Get<float>() < 0.f;
+	gInputMng.GetMoveButtonDelegate().Broadcast(bMoveUp);
 }
 
 void UITT_InputHelper::InputAbility1_Fire(const FInputActionValue& Value)

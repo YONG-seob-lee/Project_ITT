@@ -3,6 +3,7 @@
 
 #include "ITT_Button.h"
 
+#include "Framework/Application/NavigationConfig.h"
 #include "PROJECT_ITT/ITT_Define.h"
 #include "PROJECT_ITT/ITT_InstUtil.h"
 
@@ -27,6 +28,17 @@ void UITT_Button::NativeOnCurrentTextStyleChanged()
 const FText UITT_Button::GetPaletteCategory()
 {
 	return FText::FromString("ITT Custom");
+}
+
+void UITT_Button::OnHoverJoyStick()
+{
+	HandleFocusReceived();
+	//NativeOnHovered();
+}
+
+void UITT_Button::UnHoverJoyStick()
+{
+	NativeOnUnhovered();
 }
 
 void UITT_Button::SetDelegates()
