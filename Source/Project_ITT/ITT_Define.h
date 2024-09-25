@@ -290,7 +290,7 @@ enum class ITT_Character : int32
 	CodyDoll = 4		UMETA(DisplayName = "CodyDoll"),
 	MayDoll = 5			UMETA(DisplayName = "MayDoll"),
 	Dummy = 6			UMETA(DisplayName = "Dummy"),
-	
+	Nail = 7			UMETA(DisplayName = "Nail"),
 };
 
 

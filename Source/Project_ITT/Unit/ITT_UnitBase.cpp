@@ -19,6 +19,10 @@ void UITT_UnitBase::Finalize()
 	OnActorTickDelegate.RemoveAll(this);
 }
 
+void UITT_UnitBase::PostInitialize()
+{
+}
+
 void UITT_UnitBase::Tick(float DeltaTime)
 {
 	OnActorTickDelegate.Broadcast(this);

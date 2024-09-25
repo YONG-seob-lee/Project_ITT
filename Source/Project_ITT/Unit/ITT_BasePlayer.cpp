@@ -21,6 +21,11 @@ void UITT_BasePlayer::Finalize()
 	Super::Finalize();
 }
 
+void UITT_BasePlayer::PostInitialize()
+{
+	Super::PostInitialize();
+}
+
 void UITT_BasePlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -89,6 +94,14 @@ void UITT_BasePlayer::ChangePlayerState(EITT_UnitState UnitState) const
 	if(PlayerStateMachine)
 	{
 		PlayerStateMachine->SetState(static_cast<int32>(UnitState));
+	}
+}
+
+void UITT_BasePlayer::SetRotator(const FRotator& Rotator) const
+{
+	if(const TObjectPtr<AITT_CharacterBase> Character = GetCharacterBase())
+	{
+		Character->SetRotator(Rotator);
 	}
 }
 

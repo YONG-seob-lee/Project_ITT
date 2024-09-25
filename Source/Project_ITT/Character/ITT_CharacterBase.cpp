@@ -259,13 +259,9 @@ void AITT_CharacterBase::SetPositionAndRotator(const FVector& Position, const FR
 	}
 }
 
-void AITT_CharacterBase::SetRotator(const FRotator& Rotator) const
+void AITT_CharacterBase::SetRotator(const FRotator& Rotator)
 {
-	if(MovementComponent)
-	{
-		FHitResult Hit(1.f);
-		MovementComponent->SafeMoveUpdatedComponent(FVector::ZeroVector, Rotator, false, Hit);
-	}
+	SetActorRotation(Rotator);
 }
 
 void AITT_CharacterBase::ClearPathFindPoints()

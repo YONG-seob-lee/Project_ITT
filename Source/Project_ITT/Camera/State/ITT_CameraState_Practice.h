@@ -23,27 +23,10 @@ public:
 	virtual void Begin() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void Exit() override;
-
-protected:
-	virtual void InitCamera() override;
+\
 	
 private:
-	void ActorTickFunc(TObjectPtr<class UITT_UnitBase> Unit);
-
-	void SetAimed();
-
-	UPROPERTY()
-	TObjectPtr<class AITT_Actor_Camera> Cody_Camera;
-
-	UPROPERTY()
-	TObjectPtr<class AITT_Actor_Camera> Aim_Camera;
 	
 	UPROPERTY()
 	TObjectPtr<class AITT_Actor_Camera> May_Camera;
-	
-	TWeakObjectPtr<class UCapsuleComponent> Cody_CameraCapsuleComponent;
-	
-	FDelegateHandle ActorTickEvent;
-
-	bool bAimed = false;
 };

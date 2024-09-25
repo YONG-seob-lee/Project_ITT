@@ -5,6 +5,7 @@ Id,Directory_Table_Id,BP_File_Name
 10004,102,BP_CodyDoll
 10005,102,BP_MayDoll
 10006,102,BP_Dummy
+10007,102,BP_Nail
 20001,105,Logo_Widget
 20002,106,Title_Widget
 20003,109,Select_Widget

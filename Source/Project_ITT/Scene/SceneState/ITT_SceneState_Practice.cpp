@@ -117,6 +117,17 @@ void UITT_SceneState_Practice::ResetPlayer()
 void UITT_SceneState_Practice::ChangeCamera()
 {
 	gCameraMng.ChangeCameraState(static_cast<uint8>(EITT_GameCameraType::Practice));
+
+	TWeakObjectPtr<UITT_BasePlayer_Cody> Cody = nullptr;
+	for(const auto& Player : Players)
+	{
+		if(Player.Get()->GetUnitTableId() == ITT_Character::Cody)
+		{
+			Cody = Cast<UITT_BasePlayer_Cody>(Player.Get());
+		}
+	}
+
+	Cody->InitCamera();
 }
 
 void UITT_SceneState_Practice::ThrowNail()

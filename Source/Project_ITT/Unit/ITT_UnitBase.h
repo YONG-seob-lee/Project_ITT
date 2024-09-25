@@ -19,6 +19,7 @@ class PROJECT_ITT_API UITT_UnitBase : public UObject
 public:
 	virtual void Initialize();
 	virtual void Finalize();
+	virtual void PostInitialize();
 	virtual void Tick(float DeltaTime);
 	
 	virtual bool CreateUnit(int32 UnitTableId, const FVector& Pos = FVector::ZeroVector, const FRotator& Rot = FRotator::ZeroRotator);

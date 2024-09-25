@@ -17,6 +17,7 @@ class PROJECT_ITT_API UITT_BasePlayer : public UITT_UnitBase
 public:
 	virtual void Initialize() override;
 	virtual void Finalize() override;
+	virtual void PostInitialize() override;
 	virtual void Tick(float DeltaTime) override;
 	
 	virtual bool CreateUnit(int32 UnitTableId, const FVector& Pos, const FRotator& Rot) override;
@@ -26,6 +27,7 @@ public:
 	
 	void SetSelfPlayer(bool _bSelfPlayer);
 	void ChangePlayerState(EITT_UnitState UnitState) const;
+	void SetRotator(const FRotator& Rotator) const;
 	void SetPositionAndRotator(const FVector& Position, const FRotator& Rotator) const;
 
 	void SetActorEnableCollision(bool bUnitEnableCollision) const;

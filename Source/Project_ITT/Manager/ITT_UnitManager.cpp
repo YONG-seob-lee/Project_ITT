@@ -39,6 +39,7 @@ TObjectPtr<UITT_UnitBase> UITT_UnitManager::CreateUnit(int32 UnitTableId, TSubcl
 		return nullptr;
 	}
 
+	Unit->PostInitialize();
 	Unit->SetLodScaleValues(LodScale, LodScale, bOutLineModeOn);
 
 	const ITT_Handle NewUnitHandle = MakeUnitHandle(Unit);
