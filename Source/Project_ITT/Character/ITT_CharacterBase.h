@@ -56,6 +56,7 @@ public:
 
 	TMap<EITT_CharacterState, TObjectPtr<class UITT_DataAsset_SubAnimation>>& GetCharacterStateToAnimationData() { return CharacterStateToAnimationData; }
 
+	void SetAimMode(bool bAimed);
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

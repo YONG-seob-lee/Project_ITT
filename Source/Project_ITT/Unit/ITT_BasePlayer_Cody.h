@@ -24,6 +24,8 @@ private:
 	void MakeNail(int32 HolsterIndex, FName SocketName);
 
 	void SetAimed();
+	void ThrowNail();
+	
 	void AttachHand(bool bAttachHand = true);
 	int32 GetTargetNail(bool bFindEmpty);
 	

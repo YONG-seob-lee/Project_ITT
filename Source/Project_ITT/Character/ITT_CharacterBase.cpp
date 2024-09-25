@@ -323,6 +323,18 @@ void AITT_CharacterBase::SetCharacterState(EITT_CharacterState CharacterState, b
 	ITT_LOG_Verbosity(Warning, TEXT("[CharacterState] %d"), static_cast<int32>(CharacterState));
 }
 
+void AITT_CharacterBase::SetAimMode(bool bAimed)
+{
+	if(bAimed)
+	{
+		bUseControllerRotationYaw = true;	// Yaw 회전 고정.
+	}
+	else
+	{
+		bUseControllerRotationYaw = false;
+	}
+}
+
 // Called when the game starts or when spawned
 void AITT_CharacterBase::BeginPlay()
 {

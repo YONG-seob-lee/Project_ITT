@@ -37,7 +37,10 @@ public:
 
 	FORCEINLINE bool IsActivate() const { return bActivate; }
 	FORCEINLINE void SetCameraType(EITT_GameCameraType _CameraType) { CameraType = _CameraType;}
-	FORCEINLINE EITT_GameCameraType GetCameraType() const { return CameraType; } 
+	FORCEINLINE EITT_GameCameraType GetCameraType() const { return CameraType; }
+	
+	void SetAimMode();
+
 protected:
 
 	virtual void BeginPlay() override;

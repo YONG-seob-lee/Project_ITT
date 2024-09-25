@@ -28,6 +28,7 @@ void UITT_BasePlayer_Cody::Initialize()
 	Super::Initialize();
 	
 	gInputMng.GetBindAimedDelegate().AddUObject(this, &UITT_BasePlayer_Cody::SetAimed);
+	gInputMng.GetBindFireDelegate().AddUObject(this, &UITT_BasePlayer_Cody::ThrowNail);
 	AimWidget = gWidgetMng.GetBuiltInWidgetTool()->GetAimWidget();
 }
 
@@ -163,6 +164,11 @@ void UITT_BasePlayer_Cody::SetAimed()
 	}
 }
 
+void UITT_BasePlayer_Cody::ThrowNail()
+{
+	//AimWidget->NailMovement(PossibleNail.Key,true);
+}
+
 void UITT_BasePlayer_Cody::AttachHand(bool bAttachHand /* = true */)
 {
 	const int32 TargetIndex = GetTargetNail(bAttachHand == false);
@@ -249,7 +255,7 @@ void UITT_BasePlayer_Cody::ActorTickFunc(TObjectPtr<UITT_UnitBase> Unit)
 		Cody_Camera->SetTargetRotator(FRotator(0.f, 0.f, 0.f));
 
 		// Camera Step - 카메라의 위치 "UnitVector" 은 계속 따라다녀야하는데, 유닛의 방향은 알 필요가 없다. 하지만 최초 캐릭터와 카메라는 같은 방향을 바라보아야하기 때문에 딱 한번 맞춰주어야함
-		Cody_Camera->SetTargetPosition(Character->GetCurrentLocation());	
+		Cody_Camera->SetTargetPosition(Character->GetCurrentLocation());
 	}
 	else
 	{
@@ -262,5 +268,10 @@ void UITT_BasePlayer_Cody::ActorTickFunc(TObjectPtr<UITT_UnitBase> Unit)
 		Aim_Camera->SetTargetRotator(FRotator(0.f, 0.f, 0.f));
 		
 		Aim_Camera->SetTargetPosition(Character->GetCurrentLocation());
+
+		if(CodyCharacterBase.IsValid())
+		{
+			CodyCharacterBase->SetAimMode(true);
+		}
 	}
 }
