@@ -3,15 +3,55 @@
 
 #include "ITT_BasePlayer_Nail.h"
 
-void UITT_BasePlayer_Nail::AttachNail(USkeletalMeshComponent* OuterMesh, const FName& SocketName) const
+void UITT_BasePlayer_Nail::Tick(float DeltaTime)
 {
-	const TObjectPtr<USkeletalMeshComponent> NailMeshComponent = GetNailMesh();
-	if(!NailMeshComponent)
+	Super::Tick(DeltaTime);
+}
+
+void UITT_BasePlayer_Nail::PostInitialize()
+{
+	const TObjectPtr<AITT_CharacterBase> NailCharacter = GetCharacterBase();
+	if(!NailCharacter)
 	{
 		return;
 	}
+	
+	NailCharacter->SetActiveMovementComponent(false);
+	NailCharacter->SetActiveProjectileMovementComponent(false);
+	NailCharacter->SetProjectileUpdate();
+	
+}
 
-	NailMeshComponent->AttachToComponent(OuterMesh, FAttachmentTransformRules::KeepRelativeTransform, SocketName);
+void UITT_BasePlayer_Nail::AttachNail(USkeletalMeshComponent* OuterMesh, const FName& SocketName) const
+{
+	const TObjectPtr<AITT_CharacterBase> NailCh = GetCharacterBase();
+	if(!NailCh)
+	{
+		return;
+	}
+	
+	NailCh->AttachToComponent(OuterMesh, FAttachmentTransformRules::SnapToTargetIncludingScale, SocketName);
+}
+
+void UITT_BasePlayer_Nail::DetachNail() const
+{
+	const TObjectPtr<AITT_CharacterBase> NailCh = GetCharacterBase();
+	if(!NailCh)
+	{
+		return;
+	}
+	NailCh->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+}
+
+void UITT_BasePlayer_Nail::Fire(const FVector& ShootDirection) const
+{
+	const TObjectPtr<AITT_CharacterBase> NailCharacter = GetCharacterBase();
+	if(!NailCharacter)
+	{
+		return;
+	}
+	NailCharacter->SetActiveProjectileMovementComponent(true);
+	NailCharacter->SetProjectileVelocity(ShootDirection);
 }
 
 TObjectPtr<USkeletalMeshComponent> UITT_BasePlayer_Nail::GetNailMesh() const
@@ -22,5 +62,5 @@ TObjectPtr<USkeletalMeshComponent> UITT_BasePlayer_Nail::GetNailMesh() const
 		return nullptr;
 	}
 
-	return NailCh->GetRootSkeletalMeshComponent();
+	return NailCh->GetSkeletalMeshComponent();
 }

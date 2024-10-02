@@ -10,5 +10,5 @@ TObjectPtr<USkeletalMeshComponent> UITT_BasePlayer_Doll::GetSkeletalMeshComponen
 		return nullptr;
 	}
 
-	return CharacterBase->GetRootSkeletalMeshComponent();
+	return CharacterBase->GetSkeletalMeshComponent();
 }

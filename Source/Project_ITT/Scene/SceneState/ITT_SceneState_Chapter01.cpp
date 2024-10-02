@@ -66,7 +66,7 @@ void UITT_SceneState_Chapter01::CreatePlayer(const TWeakObjectPtr<AITT_PlayerSpa
 
 		if(const TObjectPtr<AITT_CharacterBase> CharacterBase = Cody->GetCharacterBase())
 		{
-			CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+			CharacterBase->GetCharacterRootComponent()->ComponentTags.Emplace(FName("Title"));
 		}
 
 		UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(Cody));
@@ -85,7 +85,7 @@ void UITT_SceneState_Chapter01::CreatePlayer(const TWeakObjectPtr<AITT_PlayerSpa
 
 		if(const TObjectPtr<AITT_CharacterBase> CharacterBase = May->GetCharacterBase())
 		{
-			CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+			CharacterBase->GetCharacterRootComponent()->ComponentTags.Emplace(FName("Title"));
 		}
 
 		UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(May));

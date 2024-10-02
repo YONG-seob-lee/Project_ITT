@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class PROJECT_ITT_API UITT_BasePlayer : public UITT_UnitBase
+class PROJECT_ITT_API  UITT_BasePlayer : public UITT_UnitBase
 {
 	GENERATED_BODY()
 	

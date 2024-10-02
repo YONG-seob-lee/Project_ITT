@@ -19,6 +19,7 @@ public:
 
 	FORCEINLINE ITT_Handle GetCameraHandle() const { return CameraHandle; }
 	FORCEINLINE FVector GetForward() const { return SpringArmComponent->GetForwardVector(); }
+	FORCEINLINE FVector GetCameraForward() const { return CameraComponent->GetForwardVector(); }
 	FORCEINLINE FVector GetCross() const { return SpringArmComponent->GetRightVector(); }
 	FORCEINLINE FRotator GetRotation() const { return SpringArmComponent->GetComponentRotation(); }
 	FORCEINLINE const FTransform& GetTransform() const { return CameraComponent->GetComponentTransform(); }

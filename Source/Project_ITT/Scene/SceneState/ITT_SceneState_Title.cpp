@@ -98,7 +98,7 @@ void UITT_SceneState_Title::CreatePlayer()
 	{
 		return;
 	}
-	CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+	CharacterBase->GetCharacterRootComponent()->ComponentTags.Emplace(FName("Title"));
 	RoseAnimInst = Cast<UITT_AnimInstance_Rose>(CharacterBase->GetAnimInstance());
 	UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(Rose));
 	UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase));
@@ -125,7 +125,7 @@ void UITT_SceneState_Title::CreateDummyPlayer()
 	{
 		return;
 	}
-	CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+	CharacterBase->GetCharacterRootComponent()->ComponentTags.Emplace(FName("Title"));
 	
 }
 

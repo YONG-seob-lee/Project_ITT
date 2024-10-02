@@ -17,6 +17,7 @@ public:
 	virtual void Initialize() override;
 	virtual void PostInitialize() override;
 	virtual void Finalize() override;
+	virtual void Tick(float DeltaTime) override;
 	
 	void InitCamera();
 private:
@@ -30,6 +31,8 @@ private:
 	int32 GetTargetNail(bool bFindEmpty);
 	
 	void ActorTickFunc(TObjectPtr<UITT_UnitBase> Unit);
+
+	void NailTrace();
 
 	TWeakObjectPtr<AITT_CharacterBase> CodyCharacterBase;
 
@@ -52,7 +55,8 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<class UITT_Widget_Aimed> AimWidget = nullptr;
-	
+
+	FVector ShootDirection = FVector::Zero();
 	FDelegateHandle ActorTickEvent;
 	bool bAimed = false;
 };

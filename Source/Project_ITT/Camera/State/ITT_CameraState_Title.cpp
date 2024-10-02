@@ -86,7 +86,7 @@ void UITT_CameraState_Title::InitCamera()
 		}
 	}
 
-	if(const TObjectPtr<UITT_UnitBase> PlayerUnit = gUnitMng.GetCurrentUnit())
+	if(const TObjectPtr<UITT_UnitBase> PlayerUnit = gUnitMng.GetUnitTableId(ITT_Character::Rose))
 	{
 		const TObjectPtr<AITT_CharacterBase> Character = PlayerUnit->GetCharacterBase();
 		CharacterSelectCamera->SetCameraAspectRatio(UITT_InstUtil::GetAspectRatio());

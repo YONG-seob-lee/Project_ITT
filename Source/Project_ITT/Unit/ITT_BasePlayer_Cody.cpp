@@ -8,6 +8,8 @@
 #include "ITT_PlayerController.h"
 #include "Camera/ITT_Actor_Camera.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Manager/ITT_CameraManager.h"
 #include "Manager/ITT_InputManager.h"
 #include "Manager/ITT_UnitManager.h"
@@ -70,6 +72,16 @@ void UITT_BasePlayer_Cody::Finalize()
 	
 	gInputMng.GetBindAimedDelegate().RemoveAll(this);
 	Super::Finalize();
+}
+
+void UITT_BasePlayer_Cody::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if(bAimed)
+	{
+		NailTrace();
+	}
 }
 
 void UITT_BasePlayer_Cody::InitCamera()
@@ -146,7 +158,7 @@ void UITT_BasePlayer_Cody::SetAimed()
 		}
 		
 		// Step1. Camera Change
-		gCameraMng.ActiveCamera(Aim_Camera, 0.2f);
+	    gCameraMng.ActiveCamera(Aim_Camera, 0.2f);
 		
 		// Step2. Nail Attach
 		AttachHand();
@@ -166,7 +178,8 @@ void UITT_BasePlayer_Cody::SetAimed()
 
 void UITT_BasePlayer_Cody::ThrowNail()
 {
-	//AimWidget->NailMovement(PossibleNail.Key,true);
+	TargetNail->DetachNail();
+	TargetNail->Fire(ShootDirection);
 }
 
 void UITT_BasePlayer_Cody::AttachHand(bool bAttachHand /* = true */)
@@ -182,12 +195,11 @@ void UITT_BasePlayer_Cody::AttachHand(bool bAttachHand /* = true */)
 	
 	if(bAttachHand)
 	{
-		if(TObjectPtr<class UITT_BasePlayer_Nail>* asdf = HolsterNails.Find(TargetIndex))
 		TargetNail = *HolsterNails.Find(TargetIndex);
 		if(TargetNail)
 		{
 			TargetNail->AttachNail(CodyMesh, SocketName::NailCatchSocket);
-			TargetNail->SetRotator(FRotator(-90.f, 0.f, 30.f));
+			//TargetNail->SetRotator(FRotator(-90.f, 0.f, 30.f));
 			HolsterNails.Emplace(TargetIndex, nullptr);
 		}
 	}
@@ -274,4 +286,29 @@ void UITT_BasePlayer_Cody::ActorTickFunc(TObjectPtr<UITT_UnitBase> Unit)
 			CodyCharacterBase->SetAimMode(true);
 		}
 	}
+}
+
+void UITT_BasePlayer_Cody::NailTrace()
+{
+	const TObjectPtr<APlayerController> Controller = UITT_InstUtil::GetPlayerController();
+	if(!Controller)
+	{
+		return;
+	}
+	constexpr float NailThrowDistance = 10000.f;
+	FVector NailStartPoint;
+
+	//const FVector ActorLocation = -CodyCharacterBase->GetActorRightVector();
+	//ITT_LOG(TEXT("%s"), *ActorLocation.ToString());
+	
+	
+	FVector2D ViewportSize;
+	GEngine->GameViewport->GetViewportSize( ViewportSize );
+	UGameplayStatics::DeprojectScreenToWorld(Controller, ViewportSize / 2,  NailStartPoint, ShootDirection);
+	
+	const FVector NailEndPoint = NailStartPoint + ShootDirection * NailThrowDistance;
+
+	FHitResult HitResult;
+	const TArray<AActor*> IgnoreActor;
+	UKismetSystemLibrary::LineTraceSingle(UITT_InstUtil::GetGameWorld(), NailStartPoint, NailEndPoint, TraceTypeQuery1, false, IgnoreActor, EDrawDebugTrace::ForDuration, HitResult, true);
 }

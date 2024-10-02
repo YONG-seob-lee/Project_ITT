@@ -73,10 +73,12 @@ void UITT_SceneState_Practice::CreatePlayer(const TWeakObjectPtr<AITT_PlayerSpaw
 		{
 			return;
 		}
-		CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+		CharacterBase->GetCharacterRootComponent()->ComponentTags.Emplace(FName("Title"));
 
 		UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(Cody));
 		UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase), 0);
+
+		ChangeCamera();
 	}
 	else if(_PlayerSpawnPoint->GetSpawnName() == TEXT("May"))
 	{
@@ -96,12 +98,10 @@ void UITT_SceneState_Practice::CreatePlayer(const TWeakObjectPtr<AITT_PlayerSpaw
 			return;
 		}
 
-		CharacterBase->GetRootComponent()->ComponentTags.Emplace(FName("Title"));
+		CharacterBase->GetCharacterRootComponent()->ComponentTags.Emplace(FName("Title"));
 		UITT_InstUtil::AssignUnitHandle(gUnitMng.GetUnitHandle(May));
 		UITT_InstUtil::OnPossessUnit(Cast<AITT_CharacterBase>(CharacterBase), 1);
 	}
-
-	ChangeCamera();
 }
 
 void UITT_SceneState_Practice::ResetPlayer()

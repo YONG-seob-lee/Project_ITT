@@ -79,14 +79,9 @@ void UITT_CameraState_CharacterSpringArm::InitCamera()
 	}
 	
 	CharacterBase = Cast<AITT_CharacterBase>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	if (CharacterBase != nullptr)
+	if (CharacterBase.IsValid() == false)
 	{
-		Cody_Camera = CharacterBase->GetFollowCamera();
-		if(Cody_Camera == nullptr)
-		{
-			ITT_LOG(TEXT("No camera object."))
-			return;
-		}
+		return;
 	}
 
 	if(const TObjectPtr<UITT_UnitBase> PlayerUnit = gUnitMng.GetCurrentUnit())

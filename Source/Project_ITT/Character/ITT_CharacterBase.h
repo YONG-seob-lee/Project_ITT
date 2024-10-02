@@ -25,8 +25,6 @@ public:
 	
 	TObjectPtr<UAnimInstance> GetAnimInstance();
 
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	FORCEINLINE FString GetCharacterName() { return CharacterName; }
 	
 	void SetLodScaleValues(float CullDistanceScale, float OutLineCullDistanceScale, bool bVisibleOutLine);
@@ -34,11 +32,15 @@ public:
 	void SetRotator(const FRotator& Rotator);
 
 	void SetActiveMovementComponent(bool bEnable) const;
+	void SetActiveProjectileMovementComponent(bool bEnable) const;
 	void MoveDirection(const FVector& Direction, float Scale = 1.f, bool bForce = false) const;
+	void SetProjectileUpdate() const;
+	void SetProjectileVelocity(const FVector& ShootDirection) const;
 
 	void SetStaticMeshComponent(TObjectPtr<UStaticMesh> StaticMesh) const;
 	
-	FORCEINLINE TObjectPtr<USkeletalMeshComponent> GetRootSkeletalMeshComponent() const { return RootSkeletalMeshComponent; }
+	FORCEINLINE TObjectPtr<USceneComponent> GetCharacterRootComponent() const { return RootComponent; }
+	FORCEINLINE TObjectPtr<USkeletalMeshComponent> GetSkeletalMeshComponent() const { return RootSkeletalMeshComponent; }
 	FORCEINLINE FVector GetCurrentLocation() const { return GetActorLocation(); }
 	FORCEINLINE FRotator GetCurrentRotator() const { return GetActorRotation(); }
 
@@ -46,23 +48,26 @@ public:
 
 	FORCEINLINE void SetOwnerUnitBase(TObjectPtr<class UObject> _UnitBase) { OwnerUnitBase = _UnitBase; } 
 	FORCEINLINE TObjectPtr<class UObject> GetOwnerUnitBase() const { return OwnerUnitBase.Get(); }
+
+	FORCEINLINE TObjectPtr<class UProjectileMovementComponent> GetProjectileMovementComponent() { return ProjectileMovementComponent; }
 	
 	void ClearPathFindPoints();
 	
 	bool CreateCharacterStateMachine();
-	
+
 	EITT_CharacterState GetCharacterState();
 	void SetCharacterState(EITT_CharacterState CharacterState, bool _bInstant = true);
 
 	TMap<EITT_CharacterState, TObjectPtr<class UITT_DataAsset_SubAnimation>>& GetCharacterStateToAnimationData() { return CharacterStateToAnimationData; }
 
 	void SetAimMode(bool bAimed);
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-private:
+protected:
 	void CreateTestSphere();
 
 	FORCEINLINE void SetName(const FString& Name) { CharacterName = Name; }
@@ -100,14 +105,11 @@ private:
 	UPROPERTY(Category = AITT_CharacterBase, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class USceneCaptureComponent2D> SceneCaptureComponent = nullptr;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
-	
 	UPROPERTY(Category = AITT_CharacterBase, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UITT_InputHelper> InputHelperComponent = nullptr;
+
+	UPROPERTY(Category = AITT_CharacterBase, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UProjectileMovementComponent> ProjectileMovementComponent = nullptr;
 	
 	UPROPERTY()
 	TObjectPtr<UITT_AnimInstance> AnimInstance = nullptr;

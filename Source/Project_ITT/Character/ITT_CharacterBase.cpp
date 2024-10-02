@@ -4,18 +4,16 @@
 #include "ITT_CharacterBase.h"
 
 #include "ITT_InstUtil.h"
-#include "Animation/ITT_AnimInstance_Rose.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Manager/ITT_InputManager.h"
 #include "PROJECT_ITT/Actor/Component/ITT_MontageComponent.h"
 #include "PROJECT_ITT/CharacterComponent/ITT_InputHelper.h"
-#include "Camera/CameraComponent.h"
 #include "CharacterComponent/ITT_CharacterMovementComponent.h"
 #include "CharacterState/ITT_CharacterState.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "StateMachine/ITT_StateMachine.h"
 
 // Sets default values
@@ -46,8 +44,8 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 	if(RootStaticMeshComponent)
 	{
 		//RootStaticMeshComponent->SetStaticMesh();
-		RootStaticMeshComponent->SetupAttachment(RootComponent);
-		RootSkeletalMeshComponent->SetupAttachment(RootStaticMeshComponent);
+		RootStaticMeshComponent->SetupAttachment(RootCapsuleComponent);
+		RootSkeletalMeshComponent->SetupAttachment(RootCapsuleComponent);
 	}
 
 	bUseControllerRotationYaw = false;
@@ -74,18 +72,6 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 		JumpMaxCount = 2;
 	}
 
-	// Create a camera boom
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 500.0f;
-	CameraBoom->bUsePawnControlRotation = true;
-
-	// Create a follow camera
-	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	FollowCamera->bUsePawnControlRotation = false;
-	FollowCamera->Deactivate();
-	
 	// Add Collision Box
 	CollisionSphereComponent = CreateDefaultSubobject<USphereComponent>("CollisionSphereComponent");
 	if(CollisionSphereComponent)
@@ -93,9 +79,10 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 		CollisionSphereComponent->OnComponentBeginOverlap.Clear();
 		CollisionSphereComponent->OnComponentEndOverlap.Clear();
 		CollisionSphereComponent->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);
+		CollisionSphereComponent->SetEnableGravity(false);
 		//CollisionSphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 		//CollisionSphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECR_Block);
-		CollisionSphereComponent->SetupAttachment(RootComponent);
+		CollisionSphereComponent->SetupAttachment(RootCapsuleComponent);
 	}
 
 	// Add Render Target 2D
@@ -104,7 +91,7 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 	{
 		SceneCaptureSpringArm->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
 		SceneCaptureSpringArm->TargetArmLength = 600.f;
-		SceneCaptureSpringArm->SetupAttachment(RootComponent);
+		SceneCaptureSpringArm->SetupAttachment(RootCapsuleComponent);
 	}
 
 	SceneCaptureComponent = CreateDefaultSubobject<USceneCaptureComponent2D>("SceneCaptureComponent");
@@ -113,6 +100,16 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 		SceneCaptureComponent->SetupAttachment(SceneCaptureSpringArm);
 	}
 
+	// Add Projectile Movement Component
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
+	if(ProjectileMovementComponent)
+	{
+		ProjectileMovementComponent->InitialSpeed = 30.f;
+		ProjectileMovementComponent->MaxSpeed = 30.f;
+		//ProjectileMovementComponent->bRotationFollowsVelocity = true;
+		//ProjectileMovementComponent->bShouldBounce = false;
+	}
+	
 	InputHelperComponent = CreateDefaultSubobject<UITT_InputHelper>(TEXT("InputHelperComponent"));
 
 	CreateTestSphere();
@@ -146,6 +143,7 @@ void AITT_CharacterBase::Initialize()
 		}
 
 		RootSkeletalMeshComponent->bUseAsOccluder = false;
+		RootSkeletalMeshComponent->SetSimulatePhysics(false);
 	}
 	
 	if(RootCapsuleComponent)
@@ -235,11 +233,35 @@ void AITT_CharacterBase::SetActiveMovementComponent(bool bEnable) const
 	}
 }
 
+void AITT_CharacterBase::SetActiveProjectileMovementComponent(bool bEnable) const
+{
+	if(ProjectileMovementComponent)
+	{
+		ProjectileMovementComponent->SetActive(bEnable);
+	}
+}
+
 void AITT_CharacterBase::MoveDirection(const FVector& Direction, float Scale, bool bForce) const
 {
 	if(MovementComponent)
 	{
 		MovementComponent->AddInputVector(Direction * Scale, bForce);
+	}
+}
+
+void AITT_CharacterBase::SetProjectileUpdate() const
+{
+	if(ProjectileMovementComponent)
+	{
+		ProjectileMovementComponent->SetUpdatedComponent(RootSkeletalMeshComponent);
+	}
+}
+
+void AITT_CharacterBase::SetProjectileVelocity(const FVector& ShootDirection) const
+{
+	if(ProjectileMovementComponent)
+	{
+		ProjectileMovementComponent->Velocity = ShootDirection * ProjectileMovementComponent->InitialSpeed;
 	}
 }
 
@@ -370,7 +392,7 @@ void AITT_CharacterBase::CreateTestSphere()
 		TestSphere->SetEnableGravity(false);
 		TestSphere->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		TestSphere->SetCollisionProfileName(TEXT("NoCollision"));
-		TestSphere->SetupAttachment(RootComponent);
+		TestSphere->SetupAttachment(RootCapsuleComponent);
 		RootSkeletalMeshComponent->SetupAttachment(TestSphere);
 		RootStaticMeshComponent->SetupAttachment(TestSphere);
 	}
