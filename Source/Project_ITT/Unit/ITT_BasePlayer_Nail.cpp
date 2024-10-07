@@ -19,7 +19,11 @@ void UITT_BasePlayer_Nail::PostInitialize()
 	NailCharacter->SetActiveMovementComponent(false);
 	NailCharacter->SetActiveProjectileMovementComponent(false);
 	NailCharacter->SetProjectileUpdate();
-	
+}
+
+void UITT_BasePlayer_Nail::Finalize()
+{
+	Super::Finalize();
 }
 
 void UITT_BasePlayer_Nail::AttachNail(USkeletalMeshComponent* OuterMesh, const FName& SocketName) const

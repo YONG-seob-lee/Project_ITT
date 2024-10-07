@@ -48,4 +48,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FITT_AnimSequenceData Equip;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FITT_AnimSequenceData Aquire;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FITT_AnimSequenceData Aquire_Aim;
 };

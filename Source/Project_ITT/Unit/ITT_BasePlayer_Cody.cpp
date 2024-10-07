@@ -25,6 +25,11 @@ namespace SocketName
 	const FName NailCatchSocket = TEXT("NailCatchSocket");
 }
 
+namespace NailState
+{
+	constexpr int32 None = 0;
+}
+
 void UITT_BasePlayer_Cody::Initialize()
 {
 	Super::Initialize();
@@ -178,13 +183,28 @@ void UITT_BasePlayer_Cody::SetAimed()
 
 void UITT_BasePlayer_Cody::ThrowNail()
 {
-	TargetNail->DetachNail();
-	TargetNail->Fire(ShootDirection);
+	if(TargetNail)
+	{
+		TargetNail->DetachNail();
+		TargetNail->Fire(ShootDirection);
+		TargetNail = nullptr;
+	}
+}
+
+void UITT_BasePlayer_Cody::ReloadNail()
+{
+	AttachHand();
 }
 
 void UITT_BasePlayer_Cody::AttachHand(bool bAttachHand /* = true */)
 {
 	const int32 TargetIndex = GetTargetNail(bAttachHand == false);
+
+	// TargetIndex == 0 이면 모든 못이 Holster에서 빠져나간 상태
+	if(TargetIndex == NailState::None)
+	{
+		return;
+	}
 	
 	USkeletalMeshComponent* CodyMesh = CodyCharacterBase->GetMesh();
 	if(!CodyMesh)
@@ -199,7 +219,6 @@ void UITT_BasePlayer_Cody::AttachHand(bool bAttachHand /* = true */)
 		if(TargetNail)
 		{
 			TargetNail->AttachNail(CodyMesh, SocketName::NailCatchSocket);
-			//TargetNail->SetRotator(FRotator(-90.f, 0.f, 30.f));
 			HolsterNails.Emplace(TargetIndex, nullptr);
 		}
 	}
@@ -213,7 +232,6 @@ void UITT_BasePlayer_Cody::AttachHand(bool bAttachHand /* = true */)
 		if(TargetNail)
 		{
 			TargetNail->AttachNail(CodyMesh, *SocketName);
-			//TargetNail->SetRotator(FRotator(0.f, 0.f, 0.f));
 			
 			HolsterNails.Emplace(TargetIndex, TargetNail);
 			TargetNail = nullptr;

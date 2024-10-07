@@ -44,8 +44,8 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 	if(RootStaticMeshComponent)
 	{
 		//RootStaticMeshComponent->SetStaticMesh();
-		RootStaticMeshComponent->SetupAttachment(RootCapsuleComponent);
-		RootSkeletalMeshComponent->SetupAttachment(RootCapsuleComponent);
+		RootStaticMeshComponent->SetupAttachment(RootComponent);
+		RootSkeletalMeshComponent->SetupAttachment(RootStaticMeshComponent);
 	}
 
 	bUseControllerRotationYaw = false;
@@ -76,8 +76,8 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 	CollisionSphereComponent = CreateDefaultSubobject<USphereComponent>("CollisionSphereComponent");
 	if(CollisionSphereComponent)
 	{
-		CollisionSphereComponent->OnComponentBeginOverlap.Clear();
-		CollisionSphereComponent->OnComponentEndOverlap.Clear();
+		CollisionSphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AITT_CharacterBase::CollisionSphereBeginOverlap);
+		CollisionSphereComponent->OnComponentEndOverlap.AddDynamic(this, &AITT_CharacterBase::CollisionSphereEndOverlap);
 		CollisionSphereComponent->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);
 		CollisionSphereComponent->SetEnableGravity(false);
 		//CollisionSphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -104,8 +104,8 @@ AITT_CharacterBase::AITT_CharacterBase( const FObjectInitializer& ObjectInitiali
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
 	if(ProjectileMovementComponent)
 	{
-		ProjectileMovementComponent->InitialSpeed = 30.f;
-		ProjectileMovementComponent->MaxSpeed = 30.f;
+		ProjectileMovementComponent->InitialSpeed = 300.f;
+		ProjectileMovementComponent->MaxSpeed = 300.f;
 		//ProjectileMovementComponent->bRotationFollowsVelocity = true;
 		//ProjectileMovementComponent->bShouldBounce = false;
 	}
@@ -380,6 +380,16 @@ void AITT_CharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	InputHelperComponent->SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void AITT_CharacterBase::CollisionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ITT_LOG(TEXT("AITT_CharacterBase::CollisionSphereBeginOverlap"));
+}
+
+void AITT_CharacterBase::CollisionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	ITT_LOG(TEXT("AITT_CharacterBase::CollisionSphereEndOverlap"));
 }
 
 void AITT_CharacterBase::CreateTestSphere()

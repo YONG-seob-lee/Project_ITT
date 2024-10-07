@@ -21,7 +21,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Anim", meta = (BlueprintThreadSafe))
 	static class UAnimSequenceBase* GetRandomAnimAnimSequence(const FITT_AnimSequencesData& AnimSequencesData);
-	
+
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
@@ -29,7 +29,11 @@ public:
 	virtual void NativeUninitializeAnimation() override;
 	virtual void NativeBeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void LinkSubAnimation();
 private:
+	TSubclassOf<UAnimInstance> GetSubAnimInstanceClass(EITT_CharacterState _CharacterState);
+	
 	TWeakObjectPtr<class AITT_CharacterBase> CharacterBase;
 
 	UPROPERTY(Category = Anim, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

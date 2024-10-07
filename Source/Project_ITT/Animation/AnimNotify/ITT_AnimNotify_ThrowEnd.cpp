@@ -6,6 +6,7 @@
 #include "ITT_InstUtil.h"
 #include "ITT_PlayerController.h"
 #include "Manager/ITT_UnitManager.h"
+#include "Unit/ITT_BasePlayer_Cody.h"
 #include "Unit/ITT_UnitBase.h"
 
 void UITT_AnimNotify_ThrowEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
@@ -14,9 +15,10 @@ void UITT_AnimNotify_ThrowEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSeq
 
 	if(const TObjectPtr<AITT_PlayerController> PlayerController = Cast<AITT_PlayerController>(UITT_InstUtil::GetPlayerController()))
 	{
-		if(const TObjectPtr<UITT_UnitBase> UnitBase = gUnitMng.GetUnit(PlayerController->GetUnitHandle()))
+		if(const TObjectPtr<UITT_BasePlayer_Cody> CodyUnit = Cast<UITT_BasePlayer_Cody>(gUnitMng.GetUnitTableId(ITT_Character::Cody)))
 		{
-			UnitBase->GetCharacterBase()->SetCharacterState(EITT_CharacterState::Aim);
+			CodyUnit->GetCharacterBase()->SetCharacterState(EITT_CharacterState::Aim);
+			CodyUnit->ReloadNail();
 		}
 	}
 }

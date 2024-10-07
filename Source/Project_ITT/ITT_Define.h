@@ -451,7 +451,6 @@ enum class EITT_CharacterState : uint8
 	Crouch,
 	Roll,
 	Aim,
-	Throw,
 	Fire,
 	
 	// RosePart

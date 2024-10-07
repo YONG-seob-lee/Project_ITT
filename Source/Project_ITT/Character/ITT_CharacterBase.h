@@ -8,6 +8,8 @@
 #include "PROJECT_ITT/Actor/AnimInstance/ITT_AnimInstance.h"
 #include "ITT_CharacterBase.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FITT_NailCountDelegate, int32);
+
 UCLASS()
 class PROJECT_ITT_API AITT_CharacterBase : public ACharacter
 {
@@ -62,11 +64,16 @@ public:
 
 	void SetAimMode(bool bAimed);
 
+	FITT_NailCountDelegate NailCountDelegate;
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
+	UFUNCTION()
+	void CollisionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	void CollisionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 protected:
 	void CreateTestSphere();
 

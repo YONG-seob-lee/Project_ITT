@@ -16,6 +16,8 @@ class PROJECT_ITT_API UITT_BasePlayer_Nail : public UITT_BasePlayer
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void PostInitialize() override;
+	virtual void Finalize() override;
+	
 	
 	void AttachNail(USkeletalMeshComponent* OuterMesh, const FName& SocketName) const;
 	void DetachNail() const;

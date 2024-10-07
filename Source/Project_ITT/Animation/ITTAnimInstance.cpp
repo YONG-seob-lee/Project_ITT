@@ -6,6 +6,7 @@
 #include "AnimData/ITT_DataAsset_SubAnimation.h"
 #include "Character/ITT_CharacterBase.h"
 #include "SubAnimInstance/ITT_SubAnimInstance.h"
+#include "SubAnimInstance/ITT_SubAnimInstance_Aim.h"
 
 UITTAnimInstance::UITTAnimInstance()
 {
@@ -46,7 +47,7 @@ UAnimSequenceBase* UITTAnimInstance::GetRandomAnimAnimSequence(const FITT_AnimSe
 void UITTAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
-
+	
 	if (GetOwningActor())
 	{
 		CharacterBase = Cast<AITT_CharacterBase>(GetOwningActor());
@@ -90,4 +91,22 @@ void UITTAnimInstance::NativeUninitializeAnimation()
 void UITTAnimInstance::NativeBeginPlay()
 {
 	Super::NativeBeginPlay();
+}
+
+void UITTAnimInstance::LinkSubAnimation()
+{
+	if(const TSubclassOf<UAnimInstance> SubAnimInstance = GetSubAnimInstanceClass(CharacterState))
+	{
+		LinkAnimClassLayers(SubAnimInstance);
+	}
+}
+
+TSubclassOf<UAnimInstance> UITTAnimInstance::GetSubAnimInstanceClass(EITT_CharacterState _CharacterState)
+{
+	if(const TObjectPtr<UITT_DataAsset_SubAnimation>* SubAnimation = CharacterStateToAnimationData.Find(_CharacterState))
+	{
+		return SubAnimation->GetClass();
+	}
+
+	return nullptr;
 }

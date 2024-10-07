@@ -13,4 +13,8 @@ UCLASS()
 class PROJECT_ITT_API UITT_SubAnimInstance_Fire : public UITT_SubAnimInstance
 {
 	GENERATED_BODY()
+	
+private:
+	UPROPERTY(Category = ITTAnim, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	int32 RemainNailCount = 0;
 };

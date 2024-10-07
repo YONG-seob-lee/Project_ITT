@@ -20,13 +20,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	void InitCamera();
-private:
 	
 	void MakeNail(int32 HolsterIndex, FName SocketName);
 
 	void SetAimed();
 	void ThrowNail();
+	void ReloadNail();
 	
+private:
 	void AttachHand(bool bAttachHand = true);
 	int32 GetTargetNail(bool bFindEmpty);
 	
@@ -55,6 +56,8 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<class UITT_Widget_Aimed> AimWidget = nullptr;
+
+	int32 NailCount = 0;
 
 	FVector ShootDirection = FVector::Zero();
 	FDelegateHandle ActorTickEvent;
